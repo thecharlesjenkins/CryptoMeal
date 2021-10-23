@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _categoryWidget() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+     // margin: EdgeInsets.symmetric(vertical: 10),
       width: AppTheme.fullWidth(context),
       height: 80,
       child: ListView(
@@ -58,36 +58,37 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
   Widget _toggleBar() {
     //height:
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+    //  margin: EdgeInsets.symmetric(vertical: 10),
       width: 183, //AppTheme.fullWidth(context),
       height: 30,
       child: ToggleSwitch(
-          //height: 30,
-          minWidth: 90.0,
-          cornerRadius: 20.0,
-          activeBgColors: [[Colors.green[800]], [Colors.orange[900]]],
-          activeFgColor: Colors.white,
-          inactiveBgColor: Colors.grey,
-          inactiveFgColor: Colors.white,
-          initialLabelIndex: 1,
-          totalSwitches: 2,
-          labels: ['Sell', 'Buy'],
-          radiusStyle: true,
-          onToggle: (index) {
-            print('switched to: $index');
-          }, 
+        //height: 30,
+        minWidth: 90.0,
+        cornerRadius: 20.0,
+        activeBgColors: [
+          [Colors.green[800]],
+          [Colors.orange[900]]
+        ],
+        activeFgColor: Colors.white,
+        inactiveBgColor: Colors.grey,
+        inactiveFgColor: Colors.white,
+        initialLabelIndex: 1,
+        totalSwitches: 2,
+        labels: ['Sell', 'Buy'],
+        radiusStyle: true,
+        onToggle: (index) {
+          print('switched to: $index');
+        },
       ),
-
     );
-  } 
+  }
 
   Widget _postButton() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+    //  margin: EdgeInsets.symmetric(vertical: 10),
       width: 150, //AppTheme.fullWidth(context),
       height: 30,
       child: TextButton(
@@ -95,33 +96,94 @@ class _MyHomePageState extends State<MyHomePage> {
           primary: Colors.white,
           backgroundColor: Colors.orange[900],
         ),
-        onPressed: () { },
+        onPressed: () {},
         child: Text('Post'),
       ),
     );
   }
-  
+
   Widget _topBar() {
     return Container(
+       // margin: EdgeInsets.symmetric(vertical: 10),
+        width: AppTheme.fullWidth(context),
+        height: AppTheme.fullWidth(context) * 0.2,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              children: <Widget>[
+                SizedBox(width: 20),
+                _toggleBar(),
+                SizedBox(width: 10),
+                _postButton(),
+              ],
+            )
+          ],
+        ));
+  }
+
+  String dropdownValue = "North Ave";
+
+  Widget dropDown() {
+    return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      width: AppTheme.fullWidth(context),
-      height: AppTheme.fullWidth(context) * 0.2,
-      child: Column(
+      width: 115, //AppTheme.fullWidth(context),
+      height: 45,
+      child: DropdownButton<String>(
+        value: dropdownValue,
+        focusColor: Colors.orangeAccent[700],
+        //dropdownColor: Colors.orangeAccent[700] ,
+        //icon: const Icon(Icons.arrow_downward),
+        iconEnabledColor:Colors.black,
         
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          
-          Row(children: 
-            
-            <Widget>[
-            SizedBox(width:20),
-            _toggleBar(),
-            SizedBox(width:10),
-            _postButton(),
-            ],
-          )
-      ],)
+        iconSize: 24,
+        elevation: 16,
+        dropdownColor: Colors.orangeAccent[700],
+        
+        style: const TextStyle(color: Colors.black),
+        
+        underline: Container(
+          height: 2,
+          color: Colors.orangeAccent[700],
+        ), 
+        onChanged: (String newValue) {
+          setState(() {
+            dropdownValue = newValue;
+          });
+        },
+        items: <String>[
+          'North Ave',
+          'West Village',
+          'Brittain',
+          'Exhibition Hall'
+        ].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
     );
+  }
+
+  Widget _filters() {
+    return Container(
+    //    margin: EdgeInsets.symmetric(vertical: 10),
+        width: AppTheme.fullWidth(context),
+        height: AppTheme.fullWidth(context) * 0.2,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              children: <Widget>[
+                SizedBox(width: 20),
+                dropDown(),
+                SizedBox(width: 10),
+                //dropDown(),
+              ],
+            )
+          ],
+        ));
   }
 
 /*
@@ -215,7 +277,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Container(
       //height: MediaQuery.of(context).size.height - 210,
-      height: MediaQuery.of(context).size.height ,
+      height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         dragStartBehavior: DragStartBehavior.down,
@@ -223,8 +285,9 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-           // _search(),
-           _topBar(),
+            // _search(),
+            _topBar(),
+            _filters(),
             _categoryWidget(),
             _productWidget(),
           ],
