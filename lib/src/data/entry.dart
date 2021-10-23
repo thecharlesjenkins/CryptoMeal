@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'entry_type.dart';
 import 'location.dart';
 
 class Entry {
@@ -8,8 +6,7 @@ class Entry {
   String id;
   TimeOfDay startTime;
   TimeOfDay endTime;
-  Location location;
-  EntryType entryType;
+  String location;
   int numberRequests;
 
   Entry(
@@ -18,7 +15,6 @@ class Entry {
     this.startTime,
     this.endTime,
     this.location,
-    this.entryType,
     this.numberRequests,
   );
 }

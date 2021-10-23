@@ -5,6 +5,7 @@ import 'package:crypto_meal/src/themes/theme.dart';
 import 'package:crypto_meal/src/widgets/title_text.dart';
 import 'package:crypto_meal/src/widgets/extentions.dart';
 
+
 class MainPage extends StatefulWidget {
   MainPage({Key? key, required this.title}) : super(key: key);
 

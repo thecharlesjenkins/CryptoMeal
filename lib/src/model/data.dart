@@ -2,6 +2,7 @@ import 'package:crypto_meal/src/model/category.dart';
 import 'package:crypto_meal/src/model/category_selected.dart';
 import 'package:crypto_meal/src/model/product.dart';
 
+
 class AppData {
   static List<Product> productList = [
     Product(
@@ -12,6 +13,7 @@ class AppData {
         isliked: false,
         image: 'assets/shooe_tilt_1.png',
         category: "Trending Now"),
+        
     Product(
         id: 2,
         name: 'Nike Air Max 97',
