@@ -142,7 +142,7 @@ class _MainPageState extends State<MainPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     //_appBar(),
-                    SizedBox(height: 10),
+                    SizedBox(height: 30),
                     _title(),
                     Expanded(
                       child: AnimatedSwitcher(
