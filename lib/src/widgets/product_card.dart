@@ -9,7 +9,8 @@ class ProductCard extends StatelessWidget {
   //final Entry entry;
   final ValueChanged<Product> onSelected;
 
-  ProductCard({Key key, this.product, this.onSelected}) : super(key: key);
+  ProductCard({Key? key, required this.product, required this.onSelected})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

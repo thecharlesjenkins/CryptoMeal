@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -54,8 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
         minWidth: 90.0,
         cornerRadius: 20.0,
         activeBgColors: [
-          [Colors.green[800]],
-          [Colors.orange[900]]
+          [Colors.green],
+          [Colors.orange]
         ],
         activeFgColor: Colors.white,
         inactiveBgColor: Colors.grey,
@@ -131,9 +131,9 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 2,
           color: Colors.orangeAccent[700],
         ),
-        onChanged: (String newValue) {
+        onChanged: (String? newValue) {
           setState(() {
-            dropdownValue = newValue;
+            dropdownValue = newValue ?? "";
           });
         },
         items: <String>[

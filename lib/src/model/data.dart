@@ -16,6 +16,7 @@ class AppData {
         id: 2,
         name: 'Nike Air Max 97',
         price: 220.00,
+        isSelected: false,
         isliked: false,
         image: 'assets/shoe_tilt_2.png',
         category: "Trending Now"),
@@ -33,6 +34,7 @@ class AppData {
         id: 2,
         name: 'Nike Air Max 97',
         price: 190.00,
+        isSelected: true,
         isliked: false,
         image: 'assets/small_tilt_shoe_2.png',
         category: "Trending Now"),
@@ -40,6 +42,7 @@ class AppData {
         id: 1,
         name: 'Nike Air Max 92607',
         price: 220.00,
+        isSelected: true,
         isliked: false,
         image: 'assets/small_tilt_shoe_3.png',
         category: "Trending Now"),
@@ -51,40 +54,18 @@ class AppData {
         isliked: false,
         image: 'assets/small_tilt_shoe_1.png',
         category: "Trending Now"),
-    // Product(
-    //     id:1,
-    //     name: 'Nike Air Max 97',
-    //     price: 190.00,
-    //     isliked: false,
-    //     image: 'assets/small_tilt_shoe_2.png',
-    //     category: "Trending Now"),
   ];
   static List<Category> categoryList = [
-    Category(),
-    Category(
-        id: 1,
-        name: "North Ave",
-        //image: 'assets/shoe_thumb_2.png',
-        isSelected: true),
+    Category(id: 1, name: "North Ave", isSelected: true),
     Category(id: 2, name: "Willage", isSelected: true),
     Category(id: 3, name: "Brittain", isSelected: true),
     Category(id: 4, name: "Exhibition Hall", isSelected: true),
-    /*
-    Category(id: 2, name: "Willage", image: 'assets/jacket.png'),
-    Category(id: 3, name: "Brittain", image: 'assets/watch.png'),
-    Category(id: 4, name: "Exhibition Hall", image: 'assets/watch.png'),
-    */
   ];
 
   static var categorySelected = CategorySelected;
 
   static List<Category> selectedCategory = [
-    Category(),
-    Category(
-        id: 1,
-        name: "North Ave",
-        //image: 'assets/shoe_thumb_2.png',
-        isSelected: true),
+    Category(id: 1, name: "North Ave", isSelected: true),
     Category(id: 2, name: "Willage", isSelected: true),
     Category(id: 3, name: "Brittain", isSelected: true),
     Category(id: 4, name: "Exhibition Hall", isSelected: true),

@@ -9,8 +9,8 @@ class TitleText extends StatelessWidget {
   final FontWeight fontWeight;
 
   const TitleText(
-      {Key key,
-      this.text,
+      {Key? key,
+      required this.text,
       this.fontSize = 18,
       this.color = LightColor.titleTextColor,
       this.fontWeight = FontWeight.w800})

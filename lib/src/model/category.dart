@@ -8,5 +8,5 @@ class Category {
 
   //Category({this.id,this.name,this.isSelected = false,this.image});
   //final List<Category> selected_categories;
-  Category({this.id, this.name, this.isSelected = true});
+  Category({required this.id, required this.name, this.isSelected = true});
 }

@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class Product {
   int id;
   String name;
@@ -8,11 +10,11 @@ class Product {
   bool isSelected;
 
   Product(
-      {this.id,
-      this.name,
-      this.category,
-      this.price,
-      this.isliked,
-      this.isSelected = false,
-      this.image});
+      {required this.id,
+      required this.name,
+      required this.category,
+      required this.price,
+      required this.isliked,
+      required this.isSelected,
+      required this.image});
 }

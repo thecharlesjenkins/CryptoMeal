@@ -6,7 +6,7 @@ import 'package:crypto_meal/src/widgets/title_text.dart';
 import 'package:crypto_meal/src/widgets/extentions.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({Key key, this.title}) : super(key: key);
+  MainPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -16,36 +16,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   bool isHomePageSelected = true;
-
-  Widget _appBar() {
-    return Container(
-      padding: AppTheme.padding,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          RotatedBox(
-            quarterTurns: 4,
-            child: _icon(Icons.sort, color: Colors.black54),
-          ),
-          ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(13)),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                      color: Color(0xfff8f8f8),
-                      blurRadius: 10,
-                      spreadRadius: 10),
-                ],
-              ),
-              child: Image.asset("assets/user.png"),
-            ),
-          ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)))
-        ],
-      ),
-    );
-  }
 
   Widget _icon(IconData icon, {Color color = LightColor.iconColor}) {
     return Container(
@@ -128,7 +98,10 @@ class _MainPageState extends State<MainPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     _title(),
-                    MyHomePage(),
+                    MyHomePage(
+                      key: null,
+                      title: 'CryptoMeal',
+                    ),
                   ],
                 ),
               ),
