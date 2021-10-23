@@ -1,0 +1,1 @@
+enum EntryType { seller, buyer }

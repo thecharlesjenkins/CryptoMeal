@@ -28,7 +28,7 @@ lib
     |    └──route.dart
     │───model
     │    │──category.dart
-    |    │──data.dart
+    |    │──src.data.dart
     |    └──product.dart
     │───pages
     |    │──homePage.dart
