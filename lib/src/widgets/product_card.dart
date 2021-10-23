@@ -7,6 +7,7 @@ import 'package:flutter_ecommerce_app/src/widgets/extentions.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
+  //final Entry entry;
   final ValueChanged<Product> onSelected;
 
   ProductCard({Key key, this.product, this.onSelected}) : super(key: key);
@@ -57,36 +58,43 @@ class ProductCard extends StatelessWidget {
                   text: "Offer Time: XX:XX XM - XX:XX XM",
                   fontSize: 16,
                 ),
+                SizedBox(height: 10),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Container(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            backgroundColor: Colors.black,
-                            padding: const EdgeInsets.all(12.0),
-                            primary: Colors.blue,
-                            textStyle: const TextStyle(fontSize: 14),
-                          ),
-                          onPressed: () {},
-                          child: FittedBox(
-                            fit: BoxFit.fitHeight,
-                            child: Text('Buy'),
-                          ),
-                        ),
-                      ),
-                    ),
+                    entryButton("buy"),
+                    SizedBox(width: 10),
+                    entryButton("sell"),
                   ],
                 ),
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget entryButton(String text) {
+    return Container(
+      child: Align(
+        alignment: Alignment.center,
+        child: TextButton(
+          style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            backgroundColor: Colors.black,
+            padding: const EdgeInsets.all(12.0),
+            primary: Colors.blue,
+            textStyle: const TextStyle(fontSize: 14),
+          ),
+          onPressed: () {},
+          child: FittedBox(
+            fit: BoxFit.fitHeight,
+            child: Text(text),
+          ),
         ),
       ),
     );
