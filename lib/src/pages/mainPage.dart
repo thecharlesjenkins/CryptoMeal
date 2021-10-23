@@ -68,6 +68,7 @@ class _MainPageState extends State<MainPage> {
 
   Widget _title() {
     return Container(
+        
         margin: AppTheme.padding,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -141,6 +142,7 @@ class _MainPageState extends State<MainPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     //_appBar(),
+                    SizedBox(height: 10),
                     _title(),
                     Expanded(
                       child: AnimatedSwitcher(
