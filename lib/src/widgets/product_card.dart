@@ -7,7 +7,9 @@ import 'package:flutter_ecommerce_app/src/widgets/extentions.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
+  //final Entry entry;
   final ValueChanged<Product> onSelected;
+
   ProductCard({Key key, this.product, this.onSelected}) : super(key: key);
 
 //   @override
@@ -32,64 +34,69 @@ class ProductCard extends StatelessWidget {
           BoxShadow(color: Color(0xfff8f8f8), blurRadius: 15, spreadRadius: 10),
         ],
       ),
-      margin: EdgeInsets.symmetric(vertical: !product.isSelected ? 5 : 0),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Stack(
-          alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Positioned(
-              left: 0,
-              top: 0,
-              child: IconButton(
-                icon: Icon(
-                  product.isliked ? Icons.favorite : Icons.favorite_border,
-                  color:
-                      product.isliked ? LightColor.red : LightColor.iconColor,
-                ),
-                onPressed: () {},
+            Flexible(
+              child: TitleText(
+                text: "North Ave",
+                fontSize: 18,
               ),
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                SizedBox(height: product.isSelected ? 5 : 0),
-                Expanded(
-                  child: Stack(
-                    alignment: Alignment.center,
-                    /*
-                    children: <Widget>[
-                      CircleAvatar(
-                        radius: 40,
-                        backgroundColor: LightColor.orange.withAlpha(40),
-                      ),
-                      Image.asset(product.image)
-                    ], */
-                  ),
-                ),
-                // SizedBox(height: 5),
                 TitleText(
-                  text: product.name,
-                  fontSize: product.isSelected ? 16 : 14,
+                  text: "Price: \$X",
+                  fontSize: 16,
                 ),
                 TitleText(
-                  text: product.category,
-                  fontSize: product.isSelected ? 14 : 12,
-                  color: LightColor.orange,
+                  text: "Offer Time: XX:XX XM - XX:XX XM",
+                  fontSize: 16,
                 ),
-                TitleText(
-                  text: product.price.toString(),
-                  fontSize: product.isSelected ? 18 : 16,
+                SizedBox(height: 10),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    entryButton("buy"),
+                    SizedBox(width: 10),
+                    entryButton("sell"),
+                  ],
                 ),
               ],
             ),
           ],
         ),
-      ).ripple(() {
-        Navigator.of(context).pushNamed('/detail');
-        onSelected(product);
-      }, borderRadius: BorderRadius.all(Radius.circular(20))),
+      ),
+    );
+  }
+
+  Widget entryButton(String text) {
+    return Container(
+      child: Align(
+        alignment: Alignment.center,
+        child: TextButton(
+          style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            backgroundColor: Colors.black,
+            padding: const EdgeInsets.all(12.0),
+            primary: Colors.blue,
+            textStyle: const TextStyle(fontSize: 14),
+          ),
+          onPressed: () {},
+          child: FittedBox(
+            fit: BoxFit.fitHeight,
+            child: Text(text),
+          ),
+        ),
+      ),
     );
   }
 }
