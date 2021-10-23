@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/src/model/category.dart';
 import 'package:flutter_ecommerce_app/src/model/data.dart';
 import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/themes/theme.dart';
@@ -32,6 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
   }
 
+ /*
   Widget _categoryWidget() {
     return Container(
      // margin: EdgeInsets.symmetric(vertical: 10),
@@ -49,6 +51,43 @@ class _MyHomePageState extends State<MyHomePage> {
                       item.isSelected = false;
                     });
                     model.isSelected = true;
+                  });
+                },
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+  */
+
+  //static var categorySelected = CategorySelected;
+  //AppData.categorySelected.add()
+
+  
+
+  Widget _categoryWidget() {
+    return Container(
+     // margin: EdgeInsets.symmetric(vertical: 10),
+      width: AppTheme.fullWidth(context),
+      height: 80,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: AppData.categoryList
+            .map(
+              (category) => ProductIcon(
+                model: category,
+                
+                onSelected: (model) {
+                  setState(() {
+                    if(model.isSelected) {
+                      AppData.selectedCategory.remove(model);
+                      model.isSelected = false;
+                    } else {
+                      AppData.selectedCategory.add(model);
+                      model.isSelected = true;
+                    }
+                    
                   });
                 },
               ),
@@ -212,7 +251,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _productWidget() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      width: AppTheme.fullWidth(context),
+      width: AppTheme.fullWidth(context) - 15,
       height: AppTheme.fullWidth(context) * 1.2,
       child: GridView(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -287,7 +326,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             // _search(),
             _topBar(),
-            _filters(),
+            //_filters(),
             _categoryWidget(),
             _productWidget(),
           ],

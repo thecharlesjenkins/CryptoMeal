@@ -1,5 +1,6 @@
 import 'package:flutter_ecommerce_app/src/model/category.dart';
 import 'package:flutter_ecommerce_app/src/model/product.dart';
+import 'package:flutter_ecommerce_app/src/model/category_selected.dart';
 
 class AppData {
   static List<Product> productList = [
@@ -62,13 +63,37 @@ class AppData {
     Category(),
     Category(
         id: 1,
-        name: "Sneakers",
-        image: 'assets/shoe_thumb_2.png',
+        name: "North Ave",
+        //image: 'assets/shoe_thumb_2.png',
         isSelected: true),
-    Category(id: 2, name: "Jacket", image: 'assets/jacket.png'),
-    Category(id: 3, name: "Watch", image: 'assets/watch.png'),
-    Category(id: 4, name: "Watch", image: 'assets/watch.png'),
+    Category(id: 2, name: "Willage", isSelected: true),
+    Category(id: 3, name: "Brittain", isSelected: true),
+    Category(id: 4, name: "Exhibition Hall",isSelected: true),
+    /*
+    Category(id: 2, name: "Willage", image: 'assets/jacket.png'),
+    Category(id: 3, name: "Brittain", image: 'assets/watch.png'),
+    Category(id: 4, name: "Exhibition Hall", image: 'assets/watch.png'),
+    */
   ];
+
+  static var categorySelected = CategorySelected;
+  
+  
+
+  static List<Category> selectedCategory = [
+    Category(),
+    Category(
+        id: 1,
+        name: "North Ave",
+        //image: 'assets/shoe_thumb_2.png',
+        isSelected: true),
+    Category(id: 2, name: "Willage", isSelected: true),
+    Category(id: 3, name: "Brittain", isSelected: true),
+    Category(id: 4, name: "Exhibition Hall",isSelected: true),
+
+  ];
+
+
   static List<String> showThumbnailList = [
     "assets/shoe_thumb_5.png",
     "assets/shoe_thumb_1.png",
