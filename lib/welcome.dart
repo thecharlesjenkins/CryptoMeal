@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'profileclass.dart';
 
 List items = [
   {
@@ -31,115 +32,11 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
 
+  String name = "";
+  String phnumber = "";
+  String username = "";
 
-  List<Widget> sliders = items.map((item) => Container(
-    padding: EdgeInsets.symmetric(horizontal:18.0),
-    child: Column(
-      children: <Widget>[
-        Flexible(
-            flex: 1,
-            fit: FlexFit.tight,
-            child: Image.asset(
-              item['image'],
-              fit: BoxFit.fitWidth,
-              width: 220.0,
-              alignment: Alignment.bottomCenter,
-            ),
-        ),
-
-        Flexible(
-            flex: 1,
-            fit: FlexFit.tight,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: <Widget>[
-
-                  Text(
-                    item['header'],
-                    style: const TextStyle(
-                      fontSize: 50.0,
-                      fontWeight: FontWeight.w300,
-                      color: Color(0XFF3F3D56),
-                      height: 2.0
-                    )
-                  ),
-
-                  Text(
-                    item['description'],
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      letterSpacing: 1.2,
-                      fontSize: 16.0,
-                      height: 1.3
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  if (item.containsKey('buttonText'))
-                    MaterialButton(
-                      onPressed: () {},
-                      color: Colors.grey,
-                      child:
-                      Text(item['buttonText']),
-                    )
-                ],
-              ),
-            ),
-        ),
-
-        if (item.containsKey('inputFlag'))
-          Flexible(
-              child: Container(
-
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Enter your username'
-                        ),
-
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
-
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Enter your phone number',
-                        ),
-
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: ElevatedButton(
-                          onPressed: (){},
-                          child: const Text('Submit'),
-                        )
-                      )
-                    ]
-                  ),
-                )
-
-              )
-
-          )
-
-      ],
-    )
-  )).toList();
+  List<Widget> sliders = [];
 
   List<Widget> indicator() => List<Widget>.generate(
       sliders.length,
@@ -162,6 +59,138 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    sliders = items.map((item) => Container(
+        padding: EdgeInsets.symmetric(horizontal:18.0),
+        child: Column(
+          children: <Widget>[
+            Flexible(
+              flex: 1,
+              fit: FlexFit.tight,
+              child: Image.asset(
+                item['image'],
+                fit: BoxFit.fitWidth,
+                width: 220.0,
+                alignment: Alignment.bottomCenter,
+              ),
+            ),
+
+            Flexible(
+              flex: 1,
+              fit: FlexFit.tight,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  children: <Widget>[
+
+                    Text(
+                        item['header'],
+                        style: const TextStyle(
+                            fontSize: 50.0,
+                            fontWeight: FontWeight.w300,
+                            color: Color(0XFF3F3D56),
+                            height: 2.0
+                        )
+                    ),
+
+                    Text(
+                      item['description'],
+                      style: const TextStyle(
+                          color: Colors.grey,
+                          letterSpacing: 1.2,
+                          fontSize: 16.0,
+                          height: 1.3
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    if (item.containsKey('buttonText'))
+                      MaterialButton(
+                        onPressed: () {},
+                        color: Colors.grey,
+                        child:
+                        Text(item['buttonText']),
+                      )
+                  ],
+                ),
+              ),
+            ),
+
+            if (item.containsKey('inputFlag'))
+              Flexible(
+                  child: Container(
+
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              TextFormField(
+                                onSaved: (String? value) {name=value ?? "";},
+                                decoration: const InputDecoration(
+                                    hintText: 'Enter your name'
+                                ),
+
+                                validator: (String? value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                              ),
+
+                              TextFormField(
+                                onSaved: (String? value) {username=value ?? "";},
+                                decoration: const InputDecoration(
+                                    hintText: 'Enter your username'
+                                ),
+
+                                validator: (String? value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                              ),
+
+                              TextFormField(
+                                onSaved: (String? value) {phnumber=value ?? "";},
+                                decoration: const InputDecoration(
+                                  hintText: 'Enter your phone number',
+                                ),
+
+                                validator: (String? value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                              ),
+
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 1.0),
+                                  child: ElevatedButton(
+                                    onPressed: (){
+                                      if (_formKey.currentState!.validate()) {
+                                        _formKey.currentState?.save();
+                                        Profile(0, name, username, phnumber);
+                                      }
+                                    },
+                                    child: const Text('Submit'),
+                                  )
+                              )
+                            ]
+                        ),
+                      )
+
+                  )
+
+              )
+
+          ],
+        )
+    )).toList();
+
+
     return Scaffold(
 
       body: Container(
