@@ -58,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+/*
   Widget _toggleBar() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -76,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
     );
-  }
+  } */
 
   Widget _productWidget() {
     return Container(
