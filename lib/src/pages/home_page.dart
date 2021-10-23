@@ -58,24 +58,92 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-/*
+
   Widget _toggleBar() {
+    //height:
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      width: 183, //AppTheme.fullWidth(context),
+      height: 30,
+      child: ToggleSwitch(
+          //height: 30,
+          minWidth: 90.0,
+          cornerRadius: 20.0,
+          activeBgColors: [[Colors.green[800]], [Colors.orange[900]]],
+          activeFgColor: Colors.white,
+          inactiveBgColor: Colors.grey,
+          inactiveFgColor: Colors.white,
+          initialLabelIndex: 1,
+          totalSwitches: 2,
+          labels: ['Sell', 'Buy'],
+          radiusStyle: true,
+          onToggle: (index) {
+            print('switched to: $index');
+          }, 
+      ),
+
+    );
+  } 
+
+  Widget _postButton() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      width: 150, //AppTheme.fullWidth(context),
+      height: 30,
+      child: TextButton(
+        style: TextButton.styleFrom(
+          primary: Colors.white,
+          backgroundColor: Colors.orange[900],
+        ),
+        onPressed: () { },
+        child: Text('Post'),
+      ),
+    );
+  }
+  
+  Widget _topBar() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       width: AppTheme.fullWidth(context),
-      height: 80,
-      child: GridView (
-        children: ToggleSwitch(
-          initialLabelIndex: 0,
-          totalSwitches: 3,
-          labels: ['America', 'Canada', 'Mexico'],
-          onToggle: (index) {
-            print('switched to: $index');
-          },
-        ),
+      height: AppTheme.fullWidth(context) * 0.2,
+      child: Column(
+        
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          
+          Row(children: 
+            
+            <Widget>[
+            SizedBox(width:20),
+            _toggleBar(),
+            SizedBox(width:10),
+            _postButton(),
+            ],
+          )
+      ],)
+    );
+  }
 
+/*
+   Widget _topBar() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      width: AppTheme.fullWidth(context),
+      height: AppTheme.fullWidth(context) * 0.2,
+      child: GridView(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 1,
+            childAspectRatio: 3,
+            mainAxisSpacing: 30,
+            crossAxisSpacing: 20),
+        padding: EdgeInsets.only(left: 20),
+        //scrollDirection: Axis.vertical,
+        children:  <Widget>[
+           // _search(),
+           _toggleBar(),
+            
+          ],
       ),
-
     );
   } */
 
@@ -156,6 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
            // _search(),
+           _topBar(),
             _categoryWidget(),
             _productWidget(),
           ],
