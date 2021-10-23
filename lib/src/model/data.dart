@@ -1,6 +1,6 @@
-import 'package:flutter_ecommerce_app/src/model/category.dart';
-import 'package:flutter_ecommerce_app/src/model/product.dart';
-import 'package:flutter_ecommerce_app/src/model/category_selected.dart';
+import 'package:crypto_meal/src/model/category.dart';
+import 'package:crypto_meal/src/model/category_selected.dart';
+import 'package:crypto_meal/src/model/product.dart';
 
 class AppData {
   static List<Product> productList = [
@@ -68,7 +68,7 @@ class AppData {
         isSelected: true),
     Category(id: 2, name: "Willage", isSelected: true),
     Category(id: 3, name: "Brittain", isSelected: true),
-    Category(id: 4, name: "Exhibition Hall",isSelected: true),
+    Category(id: 4, name: "Exhibition Hall", isSelected: true),
     /*
     Category(id: 2, name: "Willage", image: 'assets/jacket.png'),
     Category(id: 3, name: "Brittain", image: 'assets/watch.png'),
@@ -77,8 +77,6 @@ class AppData {
   ];
 
   static var categorySelected = CategorySelected;
-  
-  
 
   static List<Category> selectedCategory = [
     Category(),
@@ -89,10 +87,8 @@ class AppData {
         isSelected: true),
     Category(id: 2, name: "Willage", isSelected: true),
     Category(id: 3, name: "Brittain", isSelected: true),
-    Category(id: 4, name: "Exhibition Hall",isSelected: true),
-
+    Category(id: 4, name: "Exhibition Hall", isSelected: true),
   ];
-
 
   static List<String> showThumbnailList = [
     "assets/shoe_thumb_5.png",

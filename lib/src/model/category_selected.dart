@@ -1,7 +1,7 @@
-import 'package:flutter_ecommerce_app/src/model/category.dart';
+import 'package:crypto_meal/src/model/category.dart';
 
-class CategorySelected{
-  final  selected_categories = List<Category>();
+class CategorySelected {
+  final selected_categories = [];
 
   add(Category category) {
     this.selected_categories.add(category);
@@ -10,5 +10,4 @@ class CategorySelected{
   remove(Category category) {
     this.selected_categories.remove(category);
   }
-  //CategoryList({});
 }

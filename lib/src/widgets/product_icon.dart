@@ -1,15 +1,14 @@
+import 'package:crypto_meal/src/model/category.dart';
+import 'package:crypto_meal/src/themes/light_color.dart';
+import 'package:crypto_meal/src/themes/theme.dart';
+import 'package:crypto_meal/src/widgets/extentions.dart';
+import 'package:crypto_meal/src/widgets/title_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/src/model/category.dart';
-import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
-import 'package:flutter_ecommerce_app/src/themes/theme.dart';
-import 'package:flutter_ecommerce_app/src/widgets/title_text.dart';
-import 'package:flutter_ecommerce_app/src/widgets/extentions.dart';
 
 class ProductIcon extends StatelessWidget {
-  // final String imagePath;
-  // final String text;
   final ValueChanged<Category> onSelected;
   final Category model;
+
   ProductIcon({Key key, this.model, this.onSelected}) : super(key: key);
 
   Widget build(BuildContext context) {

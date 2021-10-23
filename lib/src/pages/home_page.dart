@@ -1,12 +1,9 @@
+import 'package:crypto_meal/src/model/data.dart';
+import 'package:crypto_meal/src/themes/theme.dart';
+import 'package:crypto_meal/src/widgets/product_card.dart';
+import 'package:crypto_meal/src/widgets/product_icon.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/src/model/category.dart';
-import 'package:flutter_ecommerce_app/src/model/data.dart';
-import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
-import 'package:flutter_ecommerce_app/src/themes/theme.dart';
-import 'package:flutter_ecommerce_app/src/widgets/product_card.dart';
-import 'package:flutter_ecommerce_app/src/widgets/product_icon.dart';
-import 'package:flutter_ecommerce_app/src/widgets/extentions.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -19,24 +16,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Widget _icon(IconData icon, {Color color = LightColor.iconColor}) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(13)),
-          color: Theme.of(context).backgroundColor,
-          boxShadow: AppTheme.shadow),
-      child: Icon(
-        icon,
-        color: color,
-      ),
-    ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
-  }
-
- /*
   Widget _categoryWidget() {
     return Container(
-     // margin: EdgeInsets.symmetric(vertical: 10),
       width: AppTheme.fullWidth(context),
       height: 80,
       child: ListView(
@@ -47,47 +28,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 model: category,
                 onSelected: (model) {
                   setState(() {
-                    AppData.categoryList.forEach((item) {
-                      item.isSelected = false;
-                    });
-                    model.isSelected = true;
-                  });
-                },
-              ),
-            )
-            .toList(),
-      ),
-    );
-  }
-  */
-
-  //static var categorySelected = CategorySelected;
-  //AppData.categorySelected.add()
-
-  
-
-  Widget _categoryWidget() {
-    return Container(
-     // margin: EdgeInsets.symmetric(vertical: 10),
-      width: AppTheme.fullWidth(context),
-      height: 80,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: AppData.categoryList
-            .map(
-              (category) => ProductIcon(
-                model: category,
-                
-                onSelected: (model) {
-                  setState(() {
-                    if(model.isSelected) {
+                    if (model.isSelected) {
                       AppData.selectedCategory.remove(model);
                       model.isSelected = false;
                     } else {
                       AppData.selectedCategory.add(model);
                       model.isSelected = true;
                     }
-                    
                   });
                 },
               ),
@@ -98,9 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _toggleBar() {
-    //height:
     return Container(
-    //  margin: EdgeInsets.symmetric(vertical: 10),
+      //  margin: EdgeInsets.symmetric(vertical: 10),
       width: 183, //AppTheme.fullWidth(context),
       height: 30,
       child: ToggleSwitch(
@@ -127,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _postButton() {
     return Container(
-    //  margin: EdgeInsets.symmetric(vertical: 10),
+      //  margin: EdgeInsets.symmetric(vertical: 10),
       width: 150, //AppTheme.fullWidth(context),
       height: 30,
       child: TextButton(
@@ -143,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _topBar() {
     return Container(
-       // margin: EdgeInsets.symmetric(vertical: 10),
+        // margin: EdgeInsets.symmetric(vertical: 10),
         width: AppTheme.fullWidth(context),
         height: AppTheme.fullWidth(context) * 0.2,
         child: Column(
@@ -173,18 +119,18 @@ class _MyHomePageState extends State<MyHomePage> {
         focusColor: Colors.orangeAccent[700],
         //dropdownColor: Colors.orangeAccent[700] ,
         //icon: const Icon(Icons.arrow_downward),
-        iconEnabledColor:Colors.black,
-        
+        iconEnabledColor: Colors.black,
+
         iconSize: 24,
         elevation: 16,
         dropdownColor: Colors.orangeAccent[700],
-        
+
         style: const TextStyle(color: Colors.black),
-        
+
         underline: Container(
           height: 2,
           color: Colors.orangeAccent[700],
-        ), 
+        ),
         onChanged: (String newValue) {
           setState(() {
             dropdownValue = newValue;
@@ -207,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _filters() {
     return Container(
-    //    margin: EdgeInsets.symmetric(vertical: 10),
+        //    margin: EdgeInsets.symmetric(vertical: 10),
         width: AppTheme.fullWidth(context),
         height: AppTheme.fullWidth(context) * 0.2,
         child: Column(
@@ -242,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children:  <Widget>[
            // _search(),
            _toggleBar(),
-            
+
           ],
       ),
     );

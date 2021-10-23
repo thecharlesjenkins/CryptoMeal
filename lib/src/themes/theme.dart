@@ -4,6 +4,7 @@ import 'light_color.dart';
 
 class AppTheme {
   const AppTheme();
+
   static ThemeData lightTheme = ThemeData(
       backgroundColor: LightColor.background,
       primaryColor: LightColor.background,

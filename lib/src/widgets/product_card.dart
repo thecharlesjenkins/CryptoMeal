@@ -1,28 +1,15 @@
+import 'package:crypto_meal/src/model/product.dart';
+import 'package:crypto_meal/src/themes/light_color.dart';
+import 'package:crypto_meal/src/widgets/title_text.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_ecommerce_app/src/model/product.dart';
-import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
-import 'package:flutter_ecommerce_app/src/widgets/title_text.dart';
-import 'package:flutter_ecommerce_app/src/widgets/extentions.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
+
   //final Entry entry;
   final ValueChanged<Product> onSelected;
 
   ProductCard({Key key, this.product, this.onSelected}) : super(key: key);
-
-//   @override
-//   _ProductCardState createState() => _ProductCardState();
-// }
-
-// class _ProductCardState extends State<ProductCard> {
-//   Product product;
-//   @override
-//   void initState() {
-//     product = widget.product;
-//     super.initState();
-//   }
 
   @override
   Widget build(BuildContext context) {

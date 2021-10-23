@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/src/pages/home_page.dart';
-import 'package:flutter_ecommerce_app/src/pages/shopping_cart_page.dart';
-import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
-import 'package:flutter_ecommerce_app/src/themes/theme.dart';
-import 'package:flutter_ecommerce_app/src/widgets/BottomNavigationBar/bottom_navigation_bar.dart';
-import 'package:flutter_ecommerce_app/src/widgets/title_text.dart';
-import 'package:flutter_ecommerce_app/src/widgets/extentions.dart';
+import 'package:crypto_meal/src/pages/home_page.dart';
+import 'package:crypto_meal/src/themes/light_color.dart';
+import 'package:crypto_meal/src/themes/theme.dart';
+import 'package:crypto_meal/src/widgets/title_text.dart';
+import 'package:crypto_meal/src/widgets/extentions.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title}) : super(key: key);
@@ -18,7 +16,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   bool isHomePageSelected = true;
-  
+
   Widget _appBar() {
     return Container(
       padding: AppTheme.padding,
@@ -47,9 +45,7 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
     );
-  } 
-
-
+  }
 
   Widget _icon(IconData icon, {Color color = LightColor.iconColor}) {
     return Container(
@@ -64,11 +60,9 @@ class _MainPageState extends State<MainPage> {
       ),
     ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
   }
-  
 
   Widget _title() {
     return Container(
-        
         margin: AppTheme.padding,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -78,28 +72,22 @@ class _MainPageState extends State<MainPage> {
               children: <Widget>[
                 TitleText(
                   //text: isHomePageSelected ? 'Our' : 'Shopping',
-                  text:  'CryptoMeal' ,
+                  text: 'CryptoMeal',
                   fontSize: 27,
                   fontWeight: FontWeight.w400,
                 ),
-                /*
-                TitleText(
-                  text: isHomePageSelected ? 'Products' : 'Cart',
-                  fontSize: 27,
-                  fontWeight: FontWeight.w700,
-                ),
-                */
               ],
             ),
             Spacer(),
             !isHomePageSelected
                 ? Container(
-                  padding: EdgeInsets.all(10),
-                  child: Icon(
+                    padding: EdgeInsets.all(10),
+                    child: Icon(
                       Icons.delete_outline,
                       color: LightColor.orange,
                     ),
-                ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)))
+                  ).ripple(() {},
+                    borderRadius: BorderRadius.all(Radius.circular(13)))
                 : SizedBox()
           ],
         ));
@@ -126,8 +114,6 @@ class _MainPageState extends State<MainPage> {
           children: <Widget>[
             SingleChildScrollView(
               child: Container(
-                //height: AppTheme.fullHeight(context) - 50,
-                height: AppTheme.fullHeight(context) -50,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -141,33 +127,12 @@ class _MainPageState extends State<MainPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    //_appBar(),
-                    SizedBox(height: 30),
                     _title(),
-                    Expanded(
-                      child: AnimatedSwitcher(
-                        duration: Duration(milliseconds: 300),
-                        switchInCurve: Curves.easeInToLinear,
-                        switchOutCurve: Curves.easeOutBack,
-                        child: isHomePageSelected
-                            ? MyHomePage()
-                            : Align(
-                                alignment: Alignment.topCenter,
-                                child: ShoppingCartPage(),
-                              ),
-                      ),
-                    )
+                    MyHomePage(),
                   ],
                 ),
               ),
             ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: CustomBottomNavigationBar(
-                onIconPresedCallback: onBottomIconPressed,
-              ),
-            )
           ],
         ),
       ),

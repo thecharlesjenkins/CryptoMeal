@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/src/model/data.dart';
-import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
-import 'package:flutter_ecommerce_app/src/themes/theme.dart';
-import 'package:flutter_ecommerce_app/src/widgets/title_text.dart';
-import 'package:flutter_ecommerce_app/src/widgets/extentions.dart';
+import 'package:crypto_meal/src/model/data.dart';
+import 'package:crypto_meal/src/themes/light_color.dart';
+import 'package:crypto_meal/src/themes/theme.dart';
+import 'package:crypto_meal/src/widgets/title_text.dart';
+import 'package:crypto_meal/src/widgets/extentions.dart';
 
 class ProductDetailPage extends StatefulWidget {
   ProductDetailPage({Key key}) : super(key: key);
@@ -16,6 +16,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     with TickerProviderStateMixin {
   AnimationController controller;
   Animation<double> animation;
+
   @override
   void initState() {
     super.initState();
@@ -33,6 +34,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   }
 
   bool isLiked = true;
+
   Widget _appBar() {
     return Container(
       padding: AppTheme.padding,
