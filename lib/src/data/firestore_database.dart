@@ -49,6 +49,7 @@ class FirestoreDatabase implements Database {
 
     CollectionReference collection =
         FirebaseFirestore.instance.collection('profiles');
+    id = id ?? '';
 
     DocumentSnapshot<Object?> document = await collection.doc(id).get();
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
@@ -120,7 +121,7 @@ class FirestoreDatabase implements Database {
   @override
   void uploadProfile(Profile profile) {
     CollectionReference entries =
-        FirebaseFirestore.instance.collection('sales');
+        FirebaseFirestore.instance.collection('profiles');
 
     entries.add(profile.tojson());
   }

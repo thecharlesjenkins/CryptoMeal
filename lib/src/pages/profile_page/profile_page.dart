@@ -1,3 +1,6 @@
+import 'package:crypto_meal/src/data/database.dart';
+import 'package:crypto_meal/src/data/global_variables.dart';
+import 'package:crypto_meal/src/data/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'user.dart';
@@ -13,9 +16,12 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  Database database = GlobalVariables().database;
+  String user_id = GlobalVariables.user_id;
+
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.myUser;
+    final user2 = UserPreferences.myUser;
 
     return Scaffold(
       appBar: buildAppBar(context),
@@ -23,11 +29,16 @@ class _ProfilePageState extends State<ProfilePage> {
         physics: BouncingScrollPhysics(),
         children: [
           ProfileWidget(
-            imagePath: user.imagePath,
+            imagePath: user2.imagePath,
             onClicked: () async {},
           ),
           const SizedBox(height: 24),
-          buildName(user),
+          FutureBuilder<Profile>(
+            future: database.getProfile(user_id),
+            builder: (futureContext, AsyncSnapshot<Profile> snapshot) {
+              return buildName(snapshot.data ?? Profile("", "", "", ""));
+            },
+          ),
           const SizedBox(height: 24),
           Center(child: buildUpgradeButton()),
           const SizedBox(height: 24),
@@ -39,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget buildName(User user) => Column(
+  Widget buildName(Profile user) => Column(
         children: [
           Text(
             user.name,
@@ -47,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           const SizedBox(height: 4),
           Text(
-            user.email,
+            user.phnumber,
             style: TextStyle(color: Colors.grey),
           )
         ],
