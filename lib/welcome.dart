@@ -33,7 +33,7 @@ List items = [
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 Database database = GlobalVariables().database;
-String user_id = GlobalVariables().user_id;
+String user_id = GlobalVariables.user_id;
 
 String name = "";
 String phnumber = "";
