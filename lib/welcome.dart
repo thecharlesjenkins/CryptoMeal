@@ -1,5 +1,8 @@
+import 'package:crypto_meal/provider/google_sign_in.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import 'src/data/profile.dart';
 
@@ -150,6 +153,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               }
                               return null;
                             },
+                          ),
+
+                          ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.white,
+                                onPrimary: Colors.black,
+                                minimumSize: Size(double.infinity, 50),
+                              ),
+                              icon: FaIcon(FontAwesomeIcons.google, color: Colors.red),
+                              label: Text('Sign Up with Google'),
+                              onPressed: () {
+                                final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
+                                provider.googleLogin();
+                              }
                           ),
                           Padding(
                               padding:

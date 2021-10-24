@@ -1,25 +1,38 @@
+import 'package:crypto_meal/provider/google_sign_in.dart';
 import 'package:crypto_meal/src/config/route.dart';
 import 'package:crypto_meal/src/pages/mainPage.dart';
 import 'package:crypto_meal/src/themes/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'welcome.dart';
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
-void main() => runApp(MyApp());
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'CryptoMeal ',
-      theme: AppTheme.lightTheme,
-      debugShowCheckedModeBanner: false,
-      routes: Routes.getRoute(),
-      onGenerateRoute: (RouteSettings settings) {
-        MainPage(
-          title: 'CryptoMeal',
-        );
-      },
-      initialRoute: "MainPage",
-    );
+    return ChangeNotifierProvider(
+          create: (context) => GoogleSignInProvider(),
+          child: MaterialApp(
+            title: 'CryptoMeal ',
+            theme: AppTheme.lightTheme,
+            /*debugShowCheckedModeBanner: false,
+            routes: Routes.getRoute(),
+            onGenerateRoute: (RouteSettings settings) {
+              MainPage(
+                title: 'CryptoMeal',
+              );
+            },
+            initialRoute: "MainPage",*/
+            home: WelcomeScreen(),
+          )
+      );
   }
 }
 

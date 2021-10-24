@@ -20,12 +20,25 @@ dependencies:
   flutter:
     sdk: flutter
   toggle_switch: ^1.2.0
-  firebase_core: "^1.7.0"
+  firebase_core: ^1.7.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.3
   google_fonts: ^2.1.0
+
+  #google sign in
+  firebase_auth: ^3.1.4
+  google_sign_in: ^5.2.0
+
+  #google icon
+  font_awesome_flutter: ^9.0.0
+
+  #state management
+  provider: ^5.0.0
+
+
+
 
 dev_dependencies:
   flutter_test:
@@ -44,5 +57,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
+
   assets:
-   - assets/
+    - assets/
+    - assets/images/undraw_Joyride_re_968t.png
+    - assets/images/undraw_Setup_re_y9w8.png
+    - assets/images/undraw_data_input_fxv2.png

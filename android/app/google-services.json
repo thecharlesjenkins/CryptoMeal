@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "146361299506",
+    "project_id": "cryptomealdatabase",
+    "storage_bucket": "cryptomealdatabase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146361299506:android:99a8c1b13afde68ecf422b",
+        "android_client_info": {
+          "package_name": "com.example.crypto_meal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "146361299506-3dt34ce5p47skqlf6u79fk6aov38tjms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.crypto_meal",
+            "certificate_hash": "11487be7cae358ce1f1a4611c02d907a28e9d042"
+          }
+        },
+        {
+          "client_id": "146361299506-vfi76n66t20c49dc9pc8nga0ean8r0ps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEetSNh4cnEqmo8_DGKc3LfbwgZiNgZ9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "146361299506-vfi76n66t20c49dc9pc8nga0ean8r0ps.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
