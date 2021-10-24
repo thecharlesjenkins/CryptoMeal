@@ -1,4 +1,5 @@
 import 'package:crypto_meal/src/model/data.dart';
+import 'package:crypto_meal/src/pages/profile_page/profile_page.dart';
 import 'package:crypto_meal/src/themes/theme.dart';
 import 'package:crypto_meal/src/widgets/product_card.dart';
 import 'package:crypto_meal/src/widgets/product_icon.dart';
@@ -188,7 +189,6 @@ class _MyHomePageState extends State<MyHomePage> {
         children:  <Widget>[
            // _search(),
            _toggleBar(),
-
           ],
       ),
     );
