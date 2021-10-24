@@ -6,7 +6,6 @@ import 'package:crypto_meal/src/widgets/title_text.dart';
 import 'package:crypto_meal/src/widgets/extentions.dart';
 import 'package:crypto_meal/src/pages/profile_page/profile_page.dart';
 
-
 class MainPage extends StatefulWidget {
   MainPage({Key? key, required this.title}) : super(key: key);
 
@@ -18,6 +17,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   bool isHomePageSelected = true;
+  int balance = 0;
 
   Widget _profile(IconData icon, {Color color = LightColor.iconColor}) {
     return Container(
@@ -76,6 +76,15 @@ class _MainPageState extends State<MainPage> {
         ));
   }
 
+  Widget _refresh() {
+    return Row(
+      children: [
+        IconButton(onPressed: () {}, icon: Icon(Icons.money)),
+        Text(balance.toString())
+      ],
+    );
+  }
+
   Widget _topBar() {
     return Container(
         // margin: EdgeInsets.symmetric(vertical: 10),
@@ -94,7 +103,9 @@ class _MainPageState extends State<MainPage> {
                   fontSize: 27,
                   fontWeight: FontWeight.w400,
                 ),
-                SizedBox(width: 150),
+                SizedBox(width: 50),
+                _refresh(),
+                SizedBox(width: 50),
                 _profile(Icons.person),
               ],
             )
