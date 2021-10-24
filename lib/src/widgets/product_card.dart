@@ -1,16 +1,31 @@
+import 'package:crypto_meal/src/data/database.dart';
 import 'package:crypto_meal/src/model/product.dart';
 import 'package:crypto_meal/src/themes/light_color.dart';
 import 'package:crypto_meal/src/widgets/title_text.dart';
 import 'package:flutter/material.dart';
+import 'package:crypto_meal/src/data/firestore_database.dart';
+import 'package:crypto_meal/src/data/entry.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto_meal/src/data/global_variables.dart';
+
 
 class ProductCard extends StatelessWidget {
-  final Product product;
+  final Entry entry;
 
+  Database database = GlobalVariables().database;
+
+  
+
+   
   //final Entry entry;
   final ValueChanged<Product> onSelected;
 
-  ProductCard({Key? key, required this.product, required this.onSelected})
-      : super(key: key);
+  ProductCard({Key? key, required this.entry, required this.onSelected})
+      : super(key: key) {
+        //entries = database.streamOffers(null, null);
+      }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +45,7 @@ class ProductCard extends StatelessWidget {
           children: <Widget>[
             Flexible(
               child: TitleText(
-                text: "North Ave",
+                text: entry.location,
                 fontSize: 18,
               ),
             ),
@@ -39,11 +54,11 @@ class ProductCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 TitleText(
-                  text: "Price: \$X",
+                  text: "Price: ${entry.price}",
                   fontSize: 16,
                 ),
                 TitleText(
-                  text: "Offer Time: XX:XX XM - XX:XX XM",
+                  text: "Offer Time: ${entry.startTime.format(context)} - ${entry.endTime.format(context)}",
                   fontSize: 16,
                 ),
                 SizedBox(height: 10),

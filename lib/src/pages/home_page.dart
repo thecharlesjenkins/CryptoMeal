@@ -1,3 +1,4 @@
+import 'package:crypto_meal/src/data/database.dart';
 import 'package:crypto_meal/src/model/data.dart';
 import 'package:crypto_meal/src/themes/theme.dart';
 import 'package:crypto_meal/src/widgets/product_card.dart';
@@ -5,6 +6,10 @@ import 'package:crypto_meal/src/widgets/product_icon.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:crypto_meal/src/data/firestore_database.dart';
+import 'package:crypto_meal/src/data/entry.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto_meal/src/data/global_variables.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -81,7 +86,9 @@ class _MyHomePageState extends State<MyHomePage> {
           primary: Colors.white,
           backgroundColor: Colors.orange[900],
         ),
-        onPressed: () {},
+        onPressed: () {
+          
+        },
         child: Text('Post'),
       ),
     );
@@ -194,6 +201,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   } */
 
+  Database database = GlobalVariables().database;
+
+  late Stream<List<Entry>> entries = database.streamOffers(null, null);
+
   Widget _productWidget() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -207,7 +218,59 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisSpacing: 20),
         padding: EdgeInsets.only(left: 20),
         scrollDirection: Axis.vertical,
-        children: AppData.productList
+        children: StreamBuilder<List<Entry>> (
+          stream: entries,
+          builder: (BuildContext context, AsyncSnapshot<List<Entry>> snapshot) {
+            List<Widget> children;
+            switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+                  children = const <Widget>[
+                    SizedBox(
+                      child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 16),
+                      child: Text('Awaiting bids...'),
+                    )
+                  ];
+                  break;
+                case ConnectionState.active:
+                  children = <Widget>[
+                    const Icon(
+                      Icons.check_circle_outline,
+                      color: Colors.green,
+                      size: 60,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text('\$${snapshot.data}'),
+                    )
+                  ];
+                  break;
+                case ConnectionState.done:
+                  children = <Widget>[
+                    const Icon(
+                      Icons.info,
+                      color: Colors.blue,
+                      size: 60,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: snapshot.data,
+                    )
+                  ];
+                  break;
+              }
+            }
+
+
+          },
+
+        ).,
+
+          /*
             .map(
               (product) => ProductCard(
                 product: product,
@@ -220,8 +283,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
               ),
-            )
-            .toList(),
+            ) */
+           // .toList(),
       ),
     );
   }

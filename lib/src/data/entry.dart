@@ -3,6 +3,7 @@ import 'location.dart';
 
 class Entry {
   double price;
+  String profileId;
   String id;
   TimeOfDay startTime;
   TimeOfDay endTime;
@@ -12,6 +13,7 @@ class Entry {
 
   Entry(
     this.price,
+    this.profileId,
     this.id,
     this.startTime,
     this.endTime,
@@ -23,7 +25,8 @@ class Entry {
   Map<String, dynamic> tojson() =>
      {
       'price' : this.price,
-      'id' : this.id,
+      'profileId' : this.profileId,
+      'id': this.id,
       'startTime': this.startTime,
       'endTime': this.endTime,
       'location': this.location,

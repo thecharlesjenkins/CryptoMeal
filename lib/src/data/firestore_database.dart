@@ -24,11 +24,8 @@ class FirestoreDatabase implements Database {
       entries = FirebaseFirestore.instance.collection('offers');
     }
 
-
     deleteEntry(entry);
-    uploadEntry(Entry(entry.price, entry.id, entry.startTime, entry.endTime, entry.location, entry.numberRequests, true));
-
-
+    uploadEntry(Entry(entry.price, entry.profileId, entry.id, entry.startTime, entry.endTime, entry.location, entry.numberRequests, true));
   }
 
 
@@ -43,10 +40,7 @@ class FirestoreDatabase implements Database {
       entries = FirebaseFirestore.instance.collection('offers');
     }
 
-    entries.doc(entry.id).delete();
-
-
-
+    entries.doc(entry.profileId).delete();
   }
 
   @override
@@ -64,17 +58,19 @@ class FirestoreDatabase implements Database {
 
 
   @override
-  Stream<List<Entry>> streamOffers(int number, CardFilter filter) {
+  Stream<List<Entry>> streamOffers(int? number, CardFilter? filter) {
     // TODO: implement streamOffers
     Stream<QuerySnapshot> collectionStream = FirebaseFirestore.instance.collection('offers').snapshots();
     
     
     return collectionStream.map((offer) => 
       offer.docs.map((DocumentSnapshot document) {
+        
         Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
         return Offer(
           data['price'],
-          data['id'],
+          data['profileId'],
+          document.id,
           data['startTime'],
           data['endTime'],
           data['location'],
@@ -83,13 +79,11 @@ class FirestoreDatabase implements Database {
         );
       }
       ).toList(),
-      
-    
     );
   }
 
   @override
-  Stream<List<Entry>> streamSales(int number, CardFilter filter) {
+  Stream<List<Entry>> streamSales(int? number, CardFilter? filter) {
     // TODO: implement streamSales
     Stream<QuerySnapshot> collectionStream = FirebaseFirestore.instance.collection('sales').snapshots();
     
@@ -99,7 +93,8 @@ class FirestoreDatabase implements Database {
         Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
         return Sale(
           data['price'],
-          data['id'],
+          data['profileId'],
+          document.id,
           data['startTime'],
           data['endTime'],
           data['location'],
@@ -108,19 +103,12 @@ class FirestoreDatabase implements Database {
         );
       }
       ).toList(),
-      
-    
     );
-
-    
-
     //throw UnimplementedError();
   }
 
   @override
   void uploadEntry(Entry entry) {
-    // TODO: implement uploadEntry
-
     CollectionReference entries;
 
     if (entry is Sale) {
@@ -128,7 +116,6 @@ class FirestoreDatabase implements Database {
     } else {
       entries = FirebaseFirestore.instance.collection('offers');
     }
-
     entries.add(entry.tojson());
   }
 }
