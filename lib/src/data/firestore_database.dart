@@ -1,6 +1,7 @@
 import 'package:crypto_meal/src/data/card_filter.dart';
 import 'package:crypto_meal/src/data/database.dart';
 import 'package:crypto_meal/src/data/entry.dart';
+import 'package:crypto_meal/src/data/global_variables.dart';
 import 'package:crypto_meal/src/data/offer.dart';
 import 'package:crypto_meal/src/data/profile.dart';
 import 'package:crypto_meal/src/data/sale.dart';
@@ -57,7 +58,6 @@ class FirestoreDatabase implements Database {
   Stream<List<Entry>> streamOffers(int? number, CardFilter? filter) {
     Stream<QuerySnapshot> collectionStream =
         FirebaseFirestore.instance.collection('offers').snapshots();
-
     return collectionStream.map(
       (offer) => offer.docs.map((DocumentSnapshot document) {
         Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
@@ -116,8 +116,9 @@ class FirestoreDatabase implements Database {
   @override
   void uploadProfile(Profile profile) {
     CollectionReference entries =
-        FirebaseFirestore.instance.collection('sales');
+        FirebaseFirestore.instance.collection('profiles');
 
-    entries.add(profile.tojson());
+    Future<DocumentReference> added = entries.add(profile.tojson());
+    added.then((value) => GlobalVariables.user_id = value.id);
   }
 }

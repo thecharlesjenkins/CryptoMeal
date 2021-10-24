@@ -142,7 +142,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             onSaved: (String? value) {
                               new_user.username = value ?? "";
                               new_user.id = value ?? "";
-                              user_id = value ?? "";
+                              GlobalVariables.user_id = value ?? "";
                             },
                             decoration: const InputDecoration(
                                 hintText: 'Enter your username'),
