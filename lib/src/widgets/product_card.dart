@@ -8,24 +8,17 @@ import 'package:crypto_meal/src/data/entry.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_meal/src/data/global_variables.dart';
 
-
 class ProductCard extends StatelessWidget {
   final Entry entry;
 
-  Database database = GlobalVariables().database;
+  final Database database = GlobalVariables().database;
 
-  
-
-   
   //final Entry entry;
-  final ValueChanged<Product> onSelected;
+  // final ValueChanged<Product> onSelected;
 
-  ProductCard({Key? key, required this.entry, required this.onSelected})
-      : super(key: key) {
-        //entries = database.streamOffers(null, null);
-      }
-
-  
+  ProductCard({Key? key, required this.entry}) : super(key: key) {
+    //entries = database.streamOffers(null, null);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +51,8 @@ class ProductCard extends StatelessWidget {
                   fontSize: 16,
                 ),
                 TitleText(
-                  text: "Offer Time: ${entry.startTime.format(context)} - ${entry.endTime.format(context)}",
+                  text:
+                      "Offer Time: ${entry.startTime.format(context)} - ${entry.endTime.format(context)}",
                   fontSize: 16,
                 ),
                 SizedBox(height: 10),

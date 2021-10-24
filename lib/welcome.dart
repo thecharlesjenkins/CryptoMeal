@@ -158,7 +158,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     _formKey.currentState?.save();
-                                    Profile(0, name, username, phnumber);
+                                    Profile("0", name, username, phnumber);
                                   }
                                 },
                                 child: const Text('Submit'),
