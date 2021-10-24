@@ -23,6 +23,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int toggle = 0;
+
   late String type;
   late int optionId;
   bool showPopup = false;
@@ -195,6 +197,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ));
   }
+
+  Database database = GlobalVariables().database;
 
   Widget _productWidget() {
     Stream<List<Entry>> entries = toggle == 0
