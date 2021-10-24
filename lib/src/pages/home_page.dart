@@ -11,6 +11,7 @@ import 'package:crypto_meal/src/widgets/product_icon.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'postClass.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -22,7 +23,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int toggle = 0;
+  late String type;
+  late int optionId;
+  bool showPopup = false;
 
   Widget _categoryWidget() {
     return Container(
@@ -81,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _postButton() {
+  Widget _postButton(BuildContext context) {
     return Container(
       //  margin: EdgeInsets.symmetric(vertical: 10),
       width: 150, //AppTheme.fullWidth(context),
@@ -92,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Colors.orange[900],
         ),
         onPressed: () {
-          publishData();
+          _postBottomSheet(context);
         },
         child: Text('Post'),
       ),
@@ -122,14 +125,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(width: 20),
                 _toggleBar(),
                 SizedBox(width: 10),
-                _postButton(),
+                _postButton(context),
               ],
             )
           ],
         ));
   }
 
-  String dropdownValue = "North Ave";
+  String dropdownValue = 'North Ave';
 
   Widget dropDown() {
     return Container(
@@ -193,32 +196,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-/*
-   Widget _topBar() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      width: AppTheme.fullWidth(context),
-      height: AppTheme.fullWidth(context) * 0.2,
-      child: GridView(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1,
-            childAspectRatio: 3,
-            mainAxisSpacing: 30,
-            crossAxisSpacing: 20),
-        padding: EdgeInsets.only(left: 20),
-        //scrollDirection: Axis.vertical,
-        children:  <Widget>[
-           // _search(),
-           _toggleBar(),
-          ],
-      ),
-    );
-  } */
-
-  Database database = GlobalVariables().database;
-
-  // late Stream<List<Entry>> entries = database.streamSales(null, null);
-
   Widget _productWidget() {
     Stream<List<Entry>> entries = toggle == 0
         ? database.streamSales(null, null)
@@ -263,40 +240,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // .toList(),
   }
 
-/*
-  Widget _search() {
-    return Container(
-      margin: AppTheme.padding,
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              height: 40,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: LightColor.lightGrey.withAlpha(100),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Search Products",
-                    hintStyle: TextStyle(fontSize: 12),
-                    contentPadding:
-                        EdgeInsets.only(left: 10, right: 10, bottom: 0, top: 5),
-                    prefixIcon: Icon(Icons.search, color: Colors.black54)),
-              ),
-            ),
-          ),
-          SizedBox(width: 20),
-          _icon(Icons.filter_list, color: Colors.black54)
-        ],
-      ),
-    );
-  }
-  */
-
   @override
   Widget build(BuildContext context) {
+    if (showPopup) {
+      _postBottomSheet(context);
+    }
+
     return Container(
       //height: MediaQuery.of(context).size.height - 210,
       height: MediaQuery.of(context).size.height,
@@ -316,5 +265,112 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  //Bottom sheet
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String start = "";
+  String end = "";
+  String price = "";
+
+  void _postBottomSheet(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext) {
+          String dining = 'North Ave';
+          return StatefulBuilder(builder: (context, setState) {
+            return Flexible(
+                child: Container(
+                    height: MediaQuery.of(context).size.height * 0.60,
+                    child: Form(
+                        key: _formKey,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text("\tPost",
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.orange,
+                                  )),
+                              DropdownButton<String>(
+                                value: dining,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dining = newValue!;
+                                  });
+                                },
+                                items: <String>[
+                                  'North Ave',
+                                  'Willage',
+                                  'Brittain',
+                                  'Exhibition Hall'
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                              TextFormField(
+                                onSaved: (String? value) {
+                                  start = value ?? "";
+                                },
+                                decoration: const InputDecoration(
+                                    hintText: 'Input desired start time',
+                                    contentPadding: EdgeInsets.all(20.0)),
+                                textAlign: TextAlign.left,
+                                validator: (String? value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                onSaved: (String? value) {
+                                  end = value ?? "";
+                                },
+                                decoration: const InputDecoration(
+                                    hintText: 'Input desired end time',
+                                    contentPadding: EdgeInsets.all(20.0)),
+                                textAlign: TextAlign.left,
+                                validator: (String? value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                onSaved: (String? value) {
+                                  price = value ?? "";
+                                },
+                                decoration: const InputDecoration(
+                                    hintText: 'Input desired price',
+                                    contentPadding: EdgeInsets.all(20.0)),
+                                textAlign: TextAlign.left,
+                                validator: (String? value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10.0),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      if (_formKey.currentState!.validate()) {
+                                        _formKey.currentState?.save();
+                                        postClass(start, end, price, dining);
+                                      }
+                                    },
+                                    child: const Text('Submit'),
+                                  ))
+                            ]))));
+          });
+        });
   }
 }
