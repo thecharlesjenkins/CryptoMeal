@@ -103,7 +103,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             decoration: const InputDecoration(
                               hintText: 'Enter your private key',
                             ),
-                            initialValue: 'd47606a20138373307c83e3e87c08a363ec9bf13240129ee097a70a795c7623b',
+                            initialValue:
+                                'd47606a20138373307c83e3e87c08a363ec9bf13240129ee097a70a795c7623b',
                           )
                       ],
                     ),
@@ -157,20 +158,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               return null;
                             },
                           ),
-
                           ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.white,
                                 onPrimary: Colors.black,
                                 minimumSize: Size(double.infinity, 50),
                               ),
-                              icon: FaIcon(FontAwesomeIcons.google, color: Colors.red),
+                              icon: FaIcon(FontAwesomeIcons.google,
+                                  color: Colors.red),
                               label: Text('Sign Up with Google'),
                               onPressed: () {
-                                final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
+                                final provider =
+                                    Provider.of<GoogleSignInProvider>(context,
+                                        listen: false);
                                 provider.googleLogin();
-                              }
-                          ),
+                              }),
                           Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 1.0),
@@ -178,12 +180,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     _formKey.currentState?.save();
-                                    Profile(0, name, username, phnumber);
+                                    Profile("0", name, username, phnumber);
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => MainPage(
-                                        title: 'CryptoMeal',
-                                      )),
+                                      MaterialPageRoute(
+                                          builder: (context) => MainPage(
+                                                title: 'CryptoMeal',
+                                              )),
                                     );
                                   }
                                 },

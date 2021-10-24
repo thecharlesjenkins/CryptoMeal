@@ -1,3 +1,4 @@
+import 'package:crypto_meal/src/data/database.dart';
 import 'package:crypto_meal/src/model/data.dart';
 import 'package:crypto_meal/src/themes/theme.dart';
 import 'package:crypto_meal/src/widgets/product_card.dart';
@@ -5,6 +6,10 @@ import 'package:crypto_meal/src/widgets/product_icon.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:crypto_meal/src/data/firestore_database.dart';
+import 'package:crypto_meal/src/data/entry.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto_meal/src/data/global_variables.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -194,20 +199,35 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   } */
 
+  Database database = GlobalVariables().database;
+
+  late Stream<List<Entry>> entries = database.streamOffers(null, null);
+
   Widget _productWidget() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      width: AppTheme.fullWidth(context) - 15,
-      height: AppTheme.fullWidth(context) * 1.2,
-      child: GridView(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1,
-            childAspectRatio: 3,
-            mainAxisSpacing: 30,
-            crossAxisSpacing: 20),
-        padding: EdgeInsets.only(left: 20),
-        scrollDirection: Axis.vertical,
-        children: AppData.productList
+        margin: EdgeInsets.symmetric(vertical: 10),
+        width: AppTheme.fullWidth(context) - 15,
+        height: AppTheme.fullWidth(context) * 1.2,
+        child: StreamBuilder<List<Entry>>(
+          stream: entries,
+          builder: (BuildContext context, AsyncSnapshot<List<Entry>> snapshot) {
+            if (snapshot.hasError) {
+              return Text('Something went wrong');
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text("Loading");
+            }
+
+            return ListView(
+              children: snapshot.data!
+                  .map((entry) => ProductCard(entry: entry))
+                  .toList(),
+            );
+          },
+        ));
+
+    /*
             .map(
               (product) => ProductCard(
                 product: product,
@@ -220,10 +240,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
               ),
-            )
-            .toList(),
-      ),
-    );
+            ) */
+    // .toList(),
   }
 
 /*

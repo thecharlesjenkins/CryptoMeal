@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
-
-import 'entry_type.dart';
 import 'location.dart';
 
 class Entry {
   double price;
+  String profileId;
   String id;
   TimeOfDay startTime;
   TimeOfDay endTime;
-  Location location;
-  EntryType entryType;
+  String location;
   int numberRequests;
+  bool complete;
 
   Entry(
     this.price,
+    this.profileId,
     this.id,
     this.startTime,
     this.endTime,
     this.location,
-    this.entryType,
     this.numberRequests,
+    this.complete,
   );
+
+  Map<String, dynamic> tojson() =>
+     {
+      'price' : this.price,
+      'profileId' : this.profileId,
+      'id': this.id,
+      'startTime': this.startTime,
+      'endTime': this.endTime,
+      'location': this.location,
+      'numberRequests': this.numberRequests,
+      'complete': this.complete,
+    };
+  
 }
