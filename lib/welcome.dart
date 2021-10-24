@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:crypto_meal/src/pages/mainPage.dart';
 
 import 'src/data/profile.dart';
 
@@ -176,6 +177,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   if (_formKey.currentState!.validate()) {
                                     _formKey.currentState?.save();
                                     Profile(0, name, username, phnumber);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => MainPage(
+                                        title: 'CryptoMeal',
+                                      )),
+                                    );
                                   }
                                 },
                                 child: const Text('Submit'),
