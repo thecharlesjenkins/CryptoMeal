@@ -1,3 +1,4 @@
+import 'package:crypto_meal/src/data/card_filter.dart';
 import 'package:crypto_meal/src/data/database.dart';
 import 'package:crypto_meal/src/data/entry.dart';
 import 'package:crypto_meal/src/data/global_variables.dart';

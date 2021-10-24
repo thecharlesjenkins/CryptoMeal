@@ -62,7 +62,6 @@ class FirestoreDatabase implements Database {
     // TODO: implement streamOffers
     Stream<QuerySnapshot> collectionStream =
         FirebaseFirestore.instance.collection('offers').snapshots();
-
     return collectionStream.map(
       (offer) => offer.docs.map((DocumentSnapshot document) {
         Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
