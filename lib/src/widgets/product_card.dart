@@ -14,6 +14,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String a = "I AM SELLER, I POSTED";
     return Container(
       decoration: BoxDecoration(
         color: LightColor.background,
@@ -36,11 +37,18 @@ class ProductCard extends StatelessWidget {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                TitleText(
-                  text: "Price: \$X",
-                  fontSize: 16,
+                Wrap(
+                    alignment: WrapAlignment.spaceBetween,
+                    children: <Widget>[
+                      TitleText(
+                        text: "Price: \$X",
+                        fontSize: 16,
+                      ),
+                      SizedBox(width: 100),
+                      status("THIS CARD IS MINE and requests"),
+                    ]
                 ),
                 TitleText(
                   text: "Offer Time: XX:XX XM - XX:XX XM",
@@ -50,11 +58,7 @@ class ProductCard extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    entryButton("buy"),
-                    SizedBox(width: 10),
-                    entryButton("sell"),
-                  ],
+                  children: buildChild(a),
                 ),
               ],
             ),
@@ -73,12 +77,14 @@ class ProductCard extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.orange,
             padding: const EdgeInsets.all(12.0),
-            primary: Colors.blue,
+            primary: Colors.white,
             textStyle: const TextStyle(fontSize: 14),
           ),
-          onPressed: () {},
+          onPressed: () =>
+          {
+          },
           child: FittedBox(
             fit: BoxFit.fitHeight,
             child: Text(text),
@@ -86,5 +92,95 @@ class ProductCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget status(String a) {
+    if (a == "THIS CARD IS MINE and no requests") {
+      return TitleText(
+        text: "0 Requests",
+        color: Colors.red,
+        fontSize: 16,
+      );
+    } else if (a == "THIS CARD IS MINE and requests") {
+      return TitleText(
+        text: "X Requests",
+        color: Colors.green,
+        fontSize: 16,
+      );
+    } else if (a == "NOT MINE and NEW") {
+      return TitleText(
+        text: "Available",
+        color: Colors.yellow,
+        fontSize: 16,
+      );
+    } else if (a == "NOT MINE and WAITING") {
+      return TitleText(
+        text: "Waiting",
+        color: Colors.orange,
+        fontSize: 16,
+      );
+    } else if (a == "NOT MINE and CONFIRMED") {
+      return TitleText(
+        text: "Confirmed",
+        color: Colors.green,
+        fontSize: 16,
+      );
+    } else if (a == "NOT MINE and DON'T GET") {
+      return TitleText(
+        text: "Unavailable",
+        color: Colors.red,
+        fontSize: 16,
+      );
+    }
+    return TitleText(
+      text: ""
+    );
+  }
+
+  List<Widget> buildChild(String a) {
+    if (a == "I AM BUYER, I WANT TO BUY, SEE NEW") {
+      return <Widget>[
+        entryButton("Buy"),
+      ];
+    } else if (a == "I AM BUYER, I WANT TO BUY, WAITING") {
+      return <Widget>[
+        entryButton("Cancel"),
+      ];
+    } else if (a == "I AM BUYER, I WANT TO BUY, ACCEPTED") {
+      return <Widget>[
+        entryButton("Complete"),
+        SizedBox(width: 10),
+        entryButton("Contact Seller"),
+      ];
+    } else if (a == "I AM BUYER, I MADE OFFER") {
+      return <Widget>[
+        entryButton("View Requests"),
+        SizedBox(width: 10),
+        entryButton("Edit"),
+        SizedBox(width: 10),
+        entryButton("Delete"),
+      ];
+    } else if (a == "I AM SELLER, I WANT TO SELL, SEE NEW") {
+      return <Widget>[
+        entryButton("Sell")
+      ];
+    } else if (a == "I AM SELLER, I WANT TO SELL, WAITING") {
+      return <Widget>[
+        entryButton("Cancel"),
+      ];
+    } else if (a == "I AM SELLER, I WANT TO SELL, ACCEPTED") {
+      return <Widget>[
+        entryButton("Contact Seller"),
+      ];
+    } else if (a == "I AM SELLER, I POSTED") {
+      return <Widget>[
+        entryButton("View Requests"),
+        SizedBox(width: 10),
+        entryButton("Edit"),
+        SizedBox(width: 10),
+        entryButton("Delete"),
+      ];
+    }
+    return <Widget>[];
   }
 }
