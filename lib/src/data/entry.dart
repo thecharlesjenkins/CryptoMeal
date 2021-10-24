@@ -22,6 +22,10 @@ class Entry {
     this.complete,
   );
 
+  fulfill() {
+    this.complete = true;
+  }
+
   Map<String, dynamic> tojson() => {
         'price': this.price,
         'profileId': this.profileId,

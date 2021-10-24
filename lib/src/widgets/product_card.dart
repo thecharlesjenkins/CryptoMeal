@@ -89,6 +89,9 @@ class ProductCard extends StatelessWidget {
             textStyle: const TextStyle(fontSize: 14),
           ),
           onPressed: () {
+            print("HEY");
+            print(entry);
+            print(entry.complete);
             if (text == "Edit") {
               //Edit Entry --> Pop-up (?)
             } else if (text == "Delete") {
@@ -98,11 +101,11 @@ class ProductCard extends StatelessWidget {
             } else if (text == "Contact Seller") {
               //SMS API (?)
             } else if (text == "Buy") {
-              //Buy (Sales: !complete --> complete)
+              database.approveEntry(entry);
             } else if (text == "Sell") {
-              //Sell (Sales: !complete --> complete)
+              database.approveEntry(entry);
             } else if (text == "Complete") {
-              //Complete (Delete? or do nothing)
+              database.deleteEntry(entry);
             }
           },
           child: FittedBox(
