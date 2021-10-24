@@ -88,35 +88,22 @@ class ProductCard extends StatelessWidget {
             primary: Colors.white,
             textStyle: const TextStyle(fontSize: 14),
           ),
-          onPressed: () => {
-            if (text == "Edit")
-              {
-                //Edit Entry --> Pop-up (?)
-              }
-            else if (text == "Delete")
-              {
-                //Delete Entry
-              }
-            else if (text == "View Requests")
-              {
-                //Do Nothing
-              }
-            else if (text == "Contact Seller")
-              {
-                //SMS API (?)
-              }
-            else if (text == "Buy")
-              {
-                //Buy (Sales: !complete --> complete)
-              }
-            else if (text == "Sell")
-              {
-                //Sell (Sales: !complete --> complete)
-              }
-            else if (text == "Complete")
-              {
-                //Complete (Delete? or do nothing)
-              }
+          onPressed: () {
+            if (text == "Edit") {
+              //Edit Entry --> Pop-up (?)
+            } else if (text == "Delete") {
+              database.deleteEntry(entry);
+            } else if (text == "View Requests") {
+              //Do Nothing
+            } else if (text == "Contact Seller") {
+              //SMS API (?)
+            } else if (text == "Buy") {
+              //Buy (Sales: !complete --> complete)
+            } else if (text == "Sell") {
+              //Sell (Sales: !complete --> complete)
+            } else if (text == "Complete") {
+              //Complete (Delete? or do nothing)
+            }
           },
           child: FittedBox(
             fit: BoxFit.fitHeight,

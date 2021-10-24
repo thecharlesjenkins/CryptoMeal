@@ -31,7 +31,6 @@ class FirestoreDatabase implements Database {
 
   @override
   void deleteEntry(Entry entry) {
-    // TODO: implement deleteEntry
     CollectionReference entries;
 
     if (entry is Sale) {
@@ -45,8 +44,6 @@ class FirestoreDatabase implements Database {
 
   @override
   Future<Profile> getProfile(String id) async {
-    // TODO: implement getProfile
-
     CollectionReference collection =
         FirebaseFirestore.instance.collection('profiles');
 
@@ -58,7 +55,6 @@ class FirestoreDatabase implements Database {
 
   @override
   Stream<List<Entry>> streamOffers(int? number, CardFilter? filter) {
-    // TODO: implement streamOffers
     Stream<QuerySnapshot> collectionStream =
         FirebaseFirestore.instance.collection('offers').snapshots();
 

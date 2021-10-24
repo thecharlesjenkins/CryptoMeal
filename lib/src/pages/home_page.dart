@@ -4,13 +4,13 @@ import 'package:crypto_meal/src/data/global_variables.dart';
 import 'package:crypto_meal/src/data/offer.dart';
 import 'package:crypto_meal/src/data/sale.dart';
 import 'package:crypto_meal/src/model/data.dart';
-import 'package:crypto_meal/src/pages/profile_page/profile_page.dart';
 import 'package:crypto_meal/src/themes/theme.dart';
 import 'package:crypto_meal/src/widgets/product_card.dart';
 import 'package:crypto_meal/src/widgets/product_icon.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+
 import 'postClass.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -105,10 +105,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void publishData() {
-    if (toggle == 0) {
+    if (toggle == 1) {
       database.uploadEntry(Offer(
           8.0, "id", "another1", "now", "5 minutes", "Brittain", 1, false));
-    } else if (toggle == 1) {
+    } else if (toggle == 0) {
       database.uploadEntry(Sale(
           8.0, "id", "another1", "now", "5 minutes", "Brittain", 1, false));
     }
@@ -284,96 +284,127 @@ class _MyHomePageState extends State<MyHomePage> {
           String dining = 'North Ave';
           return StatefulBuilder(builder: (context, setState) {
             return Flexible(
-                child: Container(
-                    height: MediaQuery.of(context).size.height * 0.60,
-                    child: Form(
-                        key: _formKey,
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text("\tPost",
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.orange,
-                                  )),
-                              DropdownButton<String>(
-                                value: dining,
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    dining = newValue!;
-                                  });
-                                },
-                                items: <String>[
-                                  'North Ave',
-                                  'Willage',
-                                  'Brittain',
-                                  'Exhibition Hall'
-                                ].map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                              ),
-                              TextFormField(
-                                onSaved: (String? value) {
-                                  start = value ?? "";
-                                },
-                                decoration: const InputDecoration(
-                                    hintText: 'Input desired start time',
-                                    contentPadding: EdgeInsets.all(20.0)),
-                                textAlign: TextAlign.left,
-                                validator: (String? value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter some text';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormField(
-                                onSaved: (String? value) {
-                                  end = value ?? "";
-                                },
-                                decoration: const InputDecoration(
-                                    hintText: 'Input desired end time',
-                                    contentPadding: EdgeInsets.all(20.0)),
-                                textAlign: TextAlign.left,
-                                validator: (String? value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter some text';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormField(
-                                onSaved: (String? value) {
-                                  price = value ?? "";
-                                },
-                                decoration: const InputDecoration(
-                                    hintText: 'Input desired price',
-                                    contentPadding: EdgeInsets.all(20.0)),
-                                textAlign: TextAlign.left,
-                                validator: (String? value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter some text';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10.0),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        _formKey.currentState?.save();
-                                        postClass(start, end, price, dining);
-                                      }
-                                    },
-                                    child: const Text('Submit'),
-                                  ))
-                            ]))));
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.60,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("\tPost",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.orange,
+                          )),
+                      DropdownButton<String>(
+                        value: dining,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dining = newValue!;
+                          });
+                        },
+                        items: <String>[
+                          'North Ave',
+                          'Willage',
+                          'Brittain',
+                          'Exhibition Hall'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                      TextFormField(
+                        onSaved: (String? value) {
+                          start = value ?? "";
+                        },
+                        decoration: const InputDecoration(
+                            hintText: 'Input desired start time',
+                            contentPadding: EdgeInsets.all(20.0)),
+                        textAlign: TextAlign.left,
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        onSaved: (String? value) {
+                          end = value ?? "";
+                        },
+                        decoration: const InputDecoration(
+                            hintText: 'Input desired end time',
+                            contentPadding: EdgeInsets.all(20.0)),
+                        textAlign: TextAlign.left,
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        onSaved: (String? value) {
+                          price = value ?? "";
+                        },
+                        decoration: const InputDecoration(
+                            hintText: 'Input desired price',
+                            contentPadding: EdgeInsets.all(20.0)),
+                        textAlign: TextAlign.left,
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState?.save();
+                              postClass(start, end, price, dining);
+                            }
+                          },
+                          child: TextButton(
+                              child: Text('Submit'),
+                              onPressed: () {
+                                Entry myEntry;
+                                if (toggle == 1) {
+                                  myEntry = Offer(
+                                      double.parse(price),
+                                      GlobalVariables.user_id,
+                                      '0',
+                                      start,
+                                      end,
+                                      dining,
+                                      0,
+                                      false);
+                                } else {
+                                  myEntry = Sale(
+                                      double.parse(price),
+                                      GlobalVariables.user_id,
+                                      '0',
+                                      start,
+                                      end,
+                                      dining,
+                                      0,
+                                      false);
+                                }
+                                database.uploadEntry(myEntry);
+                              }),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
           });
         });
   }
