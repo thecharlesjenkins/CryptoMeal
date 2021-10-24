@@ -33,6 +33,7 @@ List items = [
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 Database database = GlobalVariables().database;
+String user_id = GlobalVariables().user_id;
 
 String name = "";
 String phnumber = "";
@@ -141,6 +142,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             onSaved: (String? value) {
                               new_user.username = value ?? "";
                               new_user.id = value ?? "";
+                              user_id = value ?? "";
                             },
                             decoration: const InputDecoration(
                                 hintText: 'Enter your username'),
@@ -189,8 +191,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     _formKey.currentState?.save();
 
                                     database.uploadProfile(new_user);
-
-                                    Profile("0", name, username, phnumber);
+                                    /*database.Profile(
+                                        "0", name, username, phnumber); */
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
