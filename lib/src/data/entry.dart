@@ -8,6 +8,7 @@ class Entry {
   TimeOfDay endTime;
   String location;
   int numberRequests;
+  bool complete;
 
   Entry(
     this.price,
@@ -16,5 +17,18 @@ class Entry {
     this.endTime,
     this.location,
     this.numberRequests,
+    this.complete,
   );
+
+  Map<String, dynamic> tojson() =>
+     {
+      'price' : this.price,
+      'id' : this.id,
+      'startTime': this.startTime,
+      'endTime': this.endTime,
+      'location': this.location,
+      'numberRequests': this.numberRequests,
+      'complete': this.complete,
+    };
+  
 }

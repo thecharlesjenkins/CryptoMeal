@@ -6,7 +6,7 @@ import 'card_filter.dart';
 abstract class Database {
   Stream<List<Entry>> streamSales(int number, CardFilter filter);
   Stream<List<Entry>> streamOffers(int number, CardFilter filter);
-  Profile getProfile(String id);
+  Future<Profile> getProfile(String id);
 
   void uploadEntry(Entry entry);
   void deleteEntry(Entry entry);

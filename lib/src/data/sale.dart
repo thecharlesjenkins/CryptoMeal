@@ -9,9 +9,10 @@ class Sale extends Entry{
     String id,
     TimeOfDay startTime,
     TimeOfDay endTime,
-    Location location,
+    String location,
     int numberRequests,
-  ): super(price,id,startTime, endTime,location, numberRequests); 
+    bool complete,
+  ): super(price,id,startTime, endTime,location, numberRequests, complete); 
     
   
 }
