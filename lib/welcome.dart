@@ -1,4 +1,7 @@
 import 'package:crypto_meal/provider/google_sign_in.dart';
+import 'package:crypto_meal/src/data/database.dart';
+import 'package:crypto_meal/src/data/firestore_database.dart';
+import 'package:crypto_meal/src/data/global_variables.dart';
 import 'package:crypto_meal/src/pages/mainPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,16 +32,20 @@ List items = [
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+Database database = GlobalVariables().database;
+
+String name = "";
+String phnumber = "";
+String username = "";
+
+Profile new_user = Profile(username, name, username, phnumber);
+
 class WelcomeScreen extends StatefulWidget {
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  String name = "";
-  String phnumber = "";
-  String username = "";
-
   List<Widget> sliders = [];
 
   List<Widget> indicator() => List<Widget>.generate(
@@ -119,7 +126,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         children: <Widget>[
                           TextFormField(
                             onSaved: (String? value) {
-                              name = value ?? "";
+                              new_user.name = value ?? "";
                             },
                             decoration: const InputDecoration(
                                 hintText: 'Enter your name'),
@@ -132,7 +139,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           ),
                           TextFormField(
                             onSaved: (String? value) {
-                              username = value ?? "";
+                              new_user.username = value ?? "";
+                              new_user.id = value ?? "";
                             },
                             decoration: const InputDecoration(
                                 hintText: 'Enter your username'),
@@ -145,7 +153,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           ),
                           TextFormField(
                             onSaved: (String? value) {
-                              phnumber = value ?? "";
+                              new_user.phnumber = value ?? "";
                             },
                             decoration: const InputDecoration(
                               hintText: 'Enter your phone number',
@@ -179,6 +187,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     _formKey.currentState?.save();
+
+                                    database.uploadProfile(new_user);
+
                                     Profile("0", name, username, phnumber);
                                     Navigator.push(
                                       context,

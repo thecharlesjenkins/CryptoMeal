@@ -7,6 +7,7 @@ import 'package:crypto_meal/src/data/firestore_database.dart';
 import 'package:crypto_meal/src/data/entry.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_meal/src/data/global_variables.dart';
+import 'package:crypto_meal/src/data/profile.dart';
 
 class ProductCard extends StatelessWidget {
   final Entry entry;
