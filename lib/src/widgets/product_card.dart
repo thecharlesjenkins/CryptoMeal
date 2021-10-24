@@ -51,8 +51,7 @@ class ProductCard extends StatelessWidget {
                   fontSize: 16,
                 ),
                 TitleText(
-                  text:
-                      "Offer Time: ${entry.startTime.format(context)} - ${entry.endTime.format(context)}",
+                  text: "Offer Time: ${entry.startTime} - ${entry.endTime}",
                   fontSize: 16,
                 ),
                 SizedBox(height: 10),

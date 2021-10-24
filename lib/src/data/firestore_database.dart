@@ -9,13 +9,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreDatabase implements Database {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  
+
   //FirestoreDatabase()
 
   @override
   void approveEntry(Entry entry) {
     // TODO: implement approveEntry
-    
+
     CollectionReference entries;
 
     if (entry is Sale) {
@@ -25,9 +25,9 @@ class FirestoreDatabase implements Database {
     }
 
     deleteEntry(entry);
-    uploadEntry(Entry(entry.price, entry.profileId, entry.id, entry.startTime, entry.endTime, entry.location, entry.numberRequests, true));
+    uploadEntry(Entry(entry.price, entry.profileId, entry.id, entry.startTime,
+        entry.endTime, entry.location, entry.numberRequests, true));
   }
-
 
   @override
   void deleteEntry(Entry entry) {
@@ -47,63 +47,61 @@ class FirestoreDatabase implements Database {
   Future<Profile> getProfile(String id) async {
     // TODO: implement getProfile
 
-      CollectionReference collection = FirebaseFirestore.instance.collection('profiles');
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('profiles');
 
-      DocumentSnapshot<Object?> document = await collection.doc(id).get();
-      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+    DocumentSnapshot<Object?> document = await collection.doc(id).get();
+    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
-      return Profile(id, data['name'], data['username'], data['phnumber']);
+    return Profile(id, data['name'], data['username'], data['phnumber']);
   }
-
-
 
   @override
   Stream<List<Entry>> streamOffers(int? number, CardFilter? filter) {
     // TODO: implement streamOffers
-    Stream<QuerySnapshot> collectionStream = FirebaseFirestore.instance.collection('offers').snapshots();
-    
-    
-    return collectionStream.map((offer) => 
-      offer.docs.map((DocumentSnapshot document) {
-        
+    Stream<QuerySnapshot> collectionStream =
+        FirebaseFirestore.instance.collection('offers').snapshots();
+
+    return collectionStream.map(
+      (offer) => offer.docs.map((DocumentSnapshot document) {
         Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
         return Offer(
-          data['price'],
-          data['profileId'],
-          document.id,
-          data['startTime'],
-          data['endTime'],
-          data['location'],
-          data['numberRequests'],
-          data['complete']
-        );
-      }
-      ).toList(),
+            data['price'],
+            data['profileId'],
+            document.id,
+            data['startTime'],
+            data['endTime'],
+            data['location'],
+            data['numberRequests'],
+            data['complete']);
+      }).toList(),
     );
   }
 
   @override
   Stream<List<Entry>> streamSales(int? number, CardFilter? filter) {
     // TODO: implement streamSales
-    Stream<QuerySnapshot> collectionStream = FirebaseFirestore.instance.collection('sales').snapshots();
-    
-    
-    return collectionStream.map((sale) => 
-      sale.docs.map((DocumentSnapshot document) {
+    Stream<QuerySnapshot> collectionStream =
+        FirebaseFirestore.instance.collection('sales').snapshots();
+
+    Stream<List<Entry>> stream = collectionStream.map(
+      (sale) => sale.docs.map((DocumentSnapshot document) {
         Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
         return Sale(
-          data['price'],
-          data['profileId'],
-          document.id,
-          data['startTime'],
-          data['endTime'],
-          data['location'],
-          data['numberRequests'],
-          data['complete']
-        );
-      }
-      ).toList(),
+            data['price'] as double,
+            data['profileId'],
+            document.id,
+            data['startTime'],
+            data['endTime'],
+            data['location'],
+            data['numberRequests'],
+            data['complete']);
+      }).toList(),
     );
+
+    print("LKDJfldskjflads");
+
+    return stream;
     //throw UnimplementedError();
   }
 

@@ -1,12 +1,11 @@
 import 'package:crypto_meal/provider/google_sign_in.dart';
+import 'package:crypto_meal/src/pages/mainPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:crypto_meal/src/pages/mainPage.dart';
 
 import 'src/data/profile.dart';
-import 'transaction.dart';
 
 List items = [
   {

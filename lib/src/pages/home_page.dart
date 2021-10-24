@@ -1,4 +1,8 @@
 import 'package:crypto_meal/src/data/database.dart';
+import 'package:crypto_meal/src/data/entry.dart';
+import 'package:crypto_meal/src/data/global_variables.dart';
+import 'package:crypto_meal/src/data/offer.dart';
+import 'package:crypto_meal/src/data/sale.dart';
 import 'package:crypto_meal/src/model/data.dart';
 import 'package:crypto_meal/src/themes/theme.dart';
 import 'package:crypto_meal/src/widgets/product_card.dart';
@@ -6,10 +10,6 @@ import 'package:crypto_meal/src/widgets/product_icon.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import 'package:crypto_meal/src/data/firestore_database.dart';
-import 'package:crypto_meal/src/data/entry.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crypto_meal/src/data/global_variables.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -21,6 +21,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int toggle = 0;
+
   Widget _categoryWidget() {
     return Container(
       width: AppTheme.fullWidth(context),
@@ -65,12 +67,14 @@ class _MyHomePageState extends State<MyHomePage> {
         activeFgColor: Colors.white,
         inactiveBgColor: Colors.grey,
         inactiveFgColor: Colors.white,
-        initialLabelIndex: 1,
+        initialLabelIndex: toggle,
         totalSwitches: 2,
         labels: ['Sell', 'Buy'],
         radiusStyle: true,
         onToggle: (index) {
-          print('switched to: $index');
+          setState(() {
+            toggle = index;
+          });
         },
       ),
     );
@@ -86,10 +90,22 @@ class _MyHomePageState extends State<MyHomePage> {
           primary: Colors.white,
           backgroundColor: Colors.orange[900],
         ),
-        onPressed: () {},
+        onPressed: () {
+          publishData();
+        },
         child: Text('Post'),
       ),
     );
+  }
+
+  void publishData() {
+    if (toggle == 0) {
+      database.uploadEntry(Offer(
+          8.0, "id", "another1", "now", "5 minutes", "Brittain", 1, false));
+    } else if (toggle == 1) {
+      database.uploadEntry(Sale(
+          8.0, "id", "another1", "now", "5 minutes", "Brittain", 1, false));
+    }
   }
 
   Widget _topBar() {
@@ -201,9 +217,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Database database = GlobalVariables().database;
 
-  late Stream<List<Entry>> entries = database.streamOffers(null, null);
+  // late Stream<List<Entry>> entries = database.streamSales(null, null);
 
   Widget _productWidget() {
+    Stream<List<Entry>> entries = toggle == 0
+        ? database.streamSales(null, null)
+        : database.streamOffers(null, null);
     return Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         width: AppTheme.fullWidth(context) - 15,
@@ -212,7 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
           stream: entries,
           builder: (BuildContext context, AsyncSnapshot<List<Entry>> snapshot) {
             if (snapshot.hasError) {
-              return Text('Something went wrong');
+              return Text(snapshot.error.toString());
             }
 
             if (snapshot.connectionState == ConnectionState.waiting) {

@@ -5,8 +5,8 @@ class Entry {
   double price;
   String profileId;
   String id;
-  TimeOfDay startTime;
-  TimeOfDay endTime;
+  String startTime;
+  String endTime;
   String location;
   int numberRequests;
   bool complete;
@@ -22,16 +22,14 @@ class Entry {
     this.complete,
   );
 
-  Map<String, dynamic> tojson() =>
-     {
-      'price' : this.price,
-      'profileId' : this.profileId,
-      'id': this.id,
-      'startTime': this.startTime,
-      'endTime': this.endTime,
-      'location': this.location,
-      'numberRequests': this.numberRequests,
-      'complete': this.complete,
-    };
-  
+  Map<String, dynamic> tojson() => {
+        'price': this.price,
+        'profileId': this.profileId,
+        'id': this.id,
+        'startTime': this.startTime,
+        'endTime': this.endTime,
+        'location': this.location,
+        'numberRequests': this.numberRequests,
+        'complete': this.complete,
+      };
 }
