@@ -13,7 +13,7 @@ import 'package:crypto_meal/src/data/global_variables.dart';
 
 class ProductCard extends StatelessWidget {
   final Entry entry;
-  final String profile_id = "";
+  final String profile_id = GlobalVariables().user_id;
 
   final Database database = GlobalVariables().database;;
 
