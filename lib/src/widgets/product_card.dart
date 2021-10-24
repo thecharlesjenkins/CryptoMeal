@@ -14,9 +14,9 @@ import 'package:crypto_meal/src/data/profile.dart';
 
 class ProductCard extends StatelessWidget {
   final Entry entry;
-  final String profile_id = GlobalVariables().user_id;
+  final String profile_id = GlobalVariables.user_id;
 
-  final Database database = GlobalVariables().database;;
+  final Database database = GlobalVariables().database;
 
   //final Entry entry;
   // final ValueChanged<Product> onSelected;
@@ -25,7 +25,6 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String a = "I AM SELLER, I POSTED";
     return Container(
       decoration: BoxDecoration(
         color: LightColor.background,
@@ -56,7 +55,7 @@ class ProductCard extends StatelessWidget {
                     fontSize: 16,
                   ),
                   SizedBox(width: 100),
-                  status(entry, profile),
+                  status(),
                 ]),
                 TitleText(
                   text: "Offer Time: ${entry.startTime} - ${entry.endTime}",
@@ -64,9 +63,9 @@ class ProductCard extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: buildChild(entry)
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: buildChild()),
               ],
             ),
           ],
@@ -90,21 +89,34 @@ class ProductCard extends StatelessWidget {
             textStyle: const TextStyle(fontSize: 14),
           ),
           onPressed: () => {
-            if (text == "Edit") {
-              //Edit Entry --> Pop-up (?)
-            } else if (text == "Delete") {
-              //Delete Entry
-            } else if (text == "View Requests") {
-              //Do Nothing
-            }else if (text == "Contact Seller") {
-              //SMS API (?)
-            } else if (text == "Buy") {
-              //Buy (Sales: !complete --> complete)
-            } else if (text == "Sell") {
-              //Sell (Sales: !complete --> complete)
-            } else if (text == "Complete") {
-              //Complete (Delete? or do nothing)
-            }
+            if (text == "Edit")
+              {
+                //Edit Entry --> Pop-up (?)
+              }
+            else if (text == "Delete")
+              {
+                //Delete Entry
+              }
+            else if (text == "View Requests")
+              {
+                //Do Nothing
+              }
+            else if (text == "Contact Seller")
+              {
+                //SMS API (?)
+              }
+            else if (text == "Buy")
+              {
+                //Buy (Sales: !complete --> complete)
+              }
+            else if (text == "Sell")
+              {
+                //Sell (Sales: !complete --> complete)
+              }
+            else if (text == "Complete")
+              {
+                //Complete (Delete? or do nothing)
+              }
           },
           child: FittedBox(
             fit: BoxFit.fitHeight,
@@ -155,7 +167,9 @@ class ProductCard extends StatelessWidget {
         SizedBox(width: 10),
         entryButton("Contact Seller"),
       ];
-    } else if (entry.profileId == profile_id && entry is Offer && !entry.complete) {
+    } else if (entry.profileId == profile_id &&
+        entry is Offer &&
+        !entry.complete) {
       return <Widget>[
         entryButton("View Requests"),
         SizedBox(width: 10),
@@ -163,13 +177,17 @@ class ProductCard extends StatelessWidget {
         SizedBox(width: 10),
         entryButton("Delete"),
       ];
-    } else if (entry.profileId != profile_id && entry is Offer && !entry.complete) {
+    } else if (entry.profileId != profile_id &&
+        entry is Offer &&
+        !entry.complete) {
       return <Widget>[entryButton("Sell")];
     } else if (entry.profileId != profile_id && entry is Offer) {
       return <Widget>[
         entryButton("Contact Seller"),
       ];
-    } else if (entry.profileId == profile_id && entry is Sale && !entry.complete) {
+    } else if (entry.profileId == profile_id &&
+        entry is Sale &&
+        !entry.complete) {
       return <Widget>[
         entryButton("View Requests"),
         SizedBox(width: 10),
