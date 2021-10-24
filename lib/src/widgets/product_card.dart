@@ -65,8 +65,7 @@ class ProductCard extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: buildChild(a),
-                ),
+                  children: buildChild(entry, profile)
               ],
             ),
           ],
@@ -75,7 +74,7 @@ class ProductCard extends StatelessWidget {
     );
   }
 
-  Widget entryButton(String text) {
+  Widget entryButton(String text, Entry entry, Profile profile) {
     return Container(
       child: Align(
         alignment: Alignment.center,
@@ -89,7 +88,23 @@ class ProductCard extends StatelessWidget {
             primary: Colors.white,
             textStyle: const TextStyle(fontSize: 14),
           ),
-          onPressed: () => {},
+          onPressed: () => {
+            if (text == "Edit") {
+              //Edit Entry --> Pop-up (?)
+            } else if (text == "Delete") {
+              //Delete Entry
+            } else if (text == "View Requests") {
+              //Do Nothing
+            }else if (text == "Contact Seller") {
+              //SMS API (?)
+            } else if (text == "Buy") {
+              //Buy (Sales: !complete --> complete)
+            } else if (text == "Sell") {
+              //Sell (Sales: !complete --> complete)
+            } else if (text == "Complete") {
+              //Complete (Delete? or do nothing)
+            }
+          },
           child: FittedBox(
             fit: BoxFit.fitHeight,
             child: Text(text),
@@ -131,35 +146,35 @@ class ProductCard extends StatelessWidget {
   List<Widget> buildChild(Entry entry, Profile profile) {
     if (entry.profileId != profile.id && entry is Sale && !entry.complete) {
       return <Widget>[
-        entryButton("Buy"),
+        entryButton("Buy", entry, profile),
       ];
     } else if (entry.profileId != profile.id && entry is Sale) {
       return <Widget>[
-        entryButton("Complete"),
+        entryButton("Complete", entry, profile),
         SizedBox(width: 10),
-        entryButton("Contact Seller"),
+        entryButton("Contact Seller", entry, profile),
       ];
     } else if (entry.profileId == profile.id && entry is Offer && !entry.complete) {
       return <Widget>[
-        entryButton("View Requests"),
+        entryButton("View Requests", entry, profile),
         SizedBox(width: 10),
-        entryButton("Edit"),
+        entryButton("Edit", entry, profile),
         SizedBox(width: 10),
-        entryButton("Delete"),
+        entryButton("Delete", entry, profile),
       ];
     } else if (entry.profileId != profile.id && entry is Offer && !entry.complete) {
-      return <Widget>[entryButton("Sell")];
+      return <Widget>[entryButton("Sell", entry, profile)];
     } else if (entry.profileId != profile.id && entry is Offer) {
       return <Widget>[
-        entryButton("Contact Seller"),
+        entryButton("Contact Seller", entry, profile),
       ];
     } else if (entry.profileId == profile.id && entry is Sale && !entry.complete) {
       return <Widget>[
-        entryButton("View Requests"),
+        entryButton("View Requests", entry, profile),
         SizedBox(width: 10),
-        entryButton("Edit"),
+        entryButton("Edit", entry, profile),
         SizedBox(width: 10),
-        entryButton("Delete"),
+        entryButton("Delete", entry, profile),
       ];
     }
     return <Widget>[];
