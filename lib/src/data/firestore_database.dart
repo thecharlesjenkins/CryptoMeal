@@ -1,6 +1,7 @@
 import 'package:crypto_meal/src/data/card_filter.dart';
 import 'package:crypto_meal/src/data/database.dart';
 import 'package:crypto_meal/src/data/entry.dart';
+import 'package:crypto_meal/src/data/global_variables.dart';
 import 'package:crypto_meal/src/data/offer.dart';
 import 'package:crypto_meal/src/data/profile.dart';
 import 'package:crypto_meal/src/data/sale.dart';
@@ -49,7 +50,6 @@ class FirestoreDatabase implements Database {
 
     CollectionReference collection =
         FirebaseFirestore.instance.collection('profiles');
-    id = id ?? '';
 
     DocumentSnapshot<Object?> document = await collection.doc(id).get();
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
@@ -123,6 +123,7 @@ class FirestoreDatabase implements Database {
     CollectionReference entries =
         FirebaseFirestore.instance.collection('profiles');
 
-    entries.add(profile.tojson());
+    Future<DocumentReference> added = entries.add(profile.tojson());
+    added.then((value) => GlobalVariables.user_id = value.id);
   }
 }
