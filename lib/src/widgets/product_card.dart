@@ -13,9 +13,9 @@ import 'package:crypto_meal/src/data/global_variables.dart';
 
 class ProductCard extends StatelessWidget {
   final Entry entry;
-  final Profile profile;
+  final String profile_id = "";
 
-  final Database database = GlobalVariables().database;
+  final Database database = GlobalVariables().database;;
 
   //final Entry entry;
   // final ValueChanged<Product> onSelected;
@@ -65,7 +65,7 @@ class ProductCard extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: buildChild(entry, profile)
+                  children: buildChild(entry)
               ],
             ),
           ],
@@ -74,7 +74,7 @@ class ProductCard extends StatelessWidget {
     );
   }
 
-  Widget entryButton(String text, Entry entry, Profile profile) {
+  Widget entryButton(String text) {
     return Container(
       child: Align(
         alignment: Alignment.center,
@@ -114,14 +114,14 @@ class ProductCard extends StatelessWidget {
     );
   }
 
-  Widget status(Entry entry, Profile profile) {
-    if (entry.profileId == profile.id && entry.numberRequests == 0) {
+  Widget status() {
+    if (entry.profileId == profile_id && entry.numberRequests == 0) {
       return TitleText(
         text: "No Requests",
         color: Colors.red,
         fontSize: 16,
       );
-    } else if (entry.profileId == profile.id) {
+    } else if (entry.profileId == profile_id) {
       return TitleText(
         text: "${entry.numberRequests} Requests",
         color: Colors.green,
@@ -143,38 +143,38 @@ class ProductCard extends StatelessWidget {
     return TitleText(text: "");
   }
 
-  List<Widget> buildChild(Entry entry, Profile profile) {
-    if (entry.profileId != profile.id && entry is Sale && !entry.complete) {
+  List<Widget> buildChild() {
+    if (entry.profileId != profile_id && entry is Sale && !entry.complete) {
       return <Widget>[
-        entryButton("Buy", entry, profile),
+        entryButton("Buy"),
       ];
-    } else if (entry.profileId != profile.id && entry is Sale) {
+    } else if (entry.profileId != profile_id && entry is Sale) {
       return <Widget>[
-        entryButton("Complete", entry, profile),
+        entryButton("Complete"),
         SizedBox(width: 10),
-        entryButton("Contact Seller", entry, profile),
+        entryButton("Contact Seller"),
       ];
-    } else if (entry.profileId == profile.id && entry is Offer && !entry.complete) {
+    } else if (entry.profileId == profile_id && entry is Offer && !entry.complete) {
       return <Widget>[
-        entryButton("View Requests", entry, profile),
+        entryButton("View Requests"),
         SizedBox(width: 10),
-        entryButton("Edit", entry, profile),
+        entryButton("Edit"),
         SizedBox(width: 10),
-        entryButton("Delete", entry, profile),
+        entryButton("Delete"),
       ];
-    } else if (entry.profileId != profile.id && entry is Offer && !entry.complete) {
-      return <Widget>[entryButton("Sell", entry, profile)];
-    } else if (entry.profileId != profile.id && entry is Offer) {
+    } else if (entry.profileId != profile_id && entry is Offer && !entry.complete) {
+      return <Widget>[entryButton("Sell")];
+    } else if (entry.profileId != profile_id && entry is Offer) {
       return <Widget>[
-        entryButton("Contact Seller", entry, profile),
+        entryButton("Contact Seller"),
       ];
-    } else if (entry.profileId == profile.id && entry is Sale && !entry.complete) {
+    } else if (entry.profileId == profile_id && entry is Sale && !entry.complete) {
       return <Widget>[
-        entryButton("View Requests", entry, profile),
+        entryButton("View Requests"),
         SizedBox(width: 10),
-        entryButton("Edit", entry, profile),
+        entryButton("Edit"),
         SizedBox(width: 10),
-        entryButton("Delete", entry, profile),
+        entryButton("Delete"),
       ];
     }
     return <Widget>[];
