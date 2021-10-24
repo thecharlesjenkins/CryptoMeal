@@ -32,7 +32,8 @@ class Transact {
   static Future<DeployedContract> loadContract() async {
     String abi = await rootBundle.loadString('assets/abi.json');
     String contractAddress = "0xb2B3A7C93fFEbe5655A11a7120b06B9c24983b12";
-    final contract = DeployedContract(ContractAbi.fromJson(abi, "SWIPES"), EthereumAddress.fromHex(contractAddress));
+    final contract = DeployedContract(ContractAbi.fromJson(abi, "SWIPES"),
+        EthereumAddress.fromHex(contractAddress));
     return contract;
   }
 
@@ -42,7 +43,10 @@ class Transact {
     });
 
     final contract = await loadContract();
-    client.call(contract: contract, function: contract.function(""), params: []);
+    client.call(
+        contract: contract,
+        function: contract.function("updateBalance"),
+        params: []);
 
     String privateKey =
         'd47606a20138373307c83e3e87c08a363ec9bf13240129ee097a70a795c7623b';
