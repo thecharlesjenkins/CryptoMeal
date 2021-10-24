@@ -116,4 +116,12 @@ class FirestoreDatabase implements Database {
     }
     entries.add(entry.tojson());
   }
+
+  @override
+  void uploadProfile(Profile profile) {
+    CollectionReference entries =
+        FirebaseFirestore.instance.collection('sales');
+
+    entries.add(profile.tojson());
+  }
 }
