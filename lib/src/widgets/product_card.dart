@@ -5,20 +5,22 @@ import 'package:crypto_meal/src/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_meal/src/data/firestore_database.dart';
 import 'package:crypto_meal/src/data/entry.dart';
+import 'package:crypto_meal/src/data/sale.dart';
+import 'package:crypto_meal/src/data/offer.dart';
+import 'package:crypto_meal/src/data/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_meal/src/data/global_variables.dart';
 
 class ProductCard extends StatelessWidget {
   final Entry entry;
+  final Profile profile;
 
   final Database database = GlobalVariables().database;
 
   //final Entry entry;
   // final ValueChanged<Product> onSelected;
 
-  ProductCard({Key? key, required this.entry}) : super(key: key) {
-    //entries = database.streamOffers(null, null);
-  }
+  ProductCard({Key? key, required this.entry}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class ProductCard extends StatelessWidget {
                     fontSize: 16,
                   ),
                   SizedBox(width: 100),
-                  status("THIS CARD IS MINE and requests"),
+                  status(entry, profile),
                 ]),
                 TitleText(
                   text: "Offer Time: ${entry.startTime} - ${entry.endTime}",
@@ -97,63 +99,47 @@ class ProductCard extends StatelessWidget {
     );
   }
 
-  Widget status(String a) {
-    if (a == "THIS CARD IS MINE and no requests") {
+  Widget status(Entry entry, Profile profile) {
+    if (entry.profileId == profile.id && entry.numberRequests == 0) {
       return TitleText(
-        text: "0 Requests",
+        text: "No Requests",
         color: Colors.red,
         fontSize: 16,
       );
-    } else if (a == "THIS CARD IS MINE and requests") {
+    } else if (entry.profileId == profile.id) {
       return TitleText(
-        text: "X Requests",
+        text: "${entry.numberRequests} Requests",
         color: Colors.green,
         fontSize: 16,
       );
-    } else if (a == "NOT MINE and NEW") {
+    } else if (!entry.complete) {
       return TitleText(
         text: "Available",
         color: Colors.yellow,
         fontSize: 16,
       );
-    } else if (a == "NOT MINE and WAITING") {
-      return TitleText(
-        text: "Waiting",
-        color: Colors.orange,
-        fontSize: 16,
-      );
-    } else if (a == "NOT MINE and CONFIRMED") {
+    } else {
       return TitleText(
         text: "Confirmed",
         color: Colors.green,
-        fontSize: 16,
-      );
-    } else if (a == "NOT MINE and DON'T GET") {
-      return TitleText(
-        text: "Unavailable",
-        color: Colors.red,
         fontSize: 16,
       );
     }
     return TitleText(text: "");
   }
 
-  List<Widget> buildChild(String a) {
-    if (a == "I AM BUYER, I WANT TO BUY, SEE NEW") {
+  List<Widget> buildChild(Entry entry, Profile profile) {
+    if (entry.profileId != profile.id && entry is Sale && !entry.complete) {
       return <Widget>[
         entryButton("Buy"),
       ];
-    } else if (a == "I AM BUYER, I WANT TO BUY, WAITING") {
-      return <Widget>[
-        entryButton("Cancel"),
-      ];
-    } else if (a == "I AM BUYER, I WANT TO BUY, ACCEPTED") {
+    } else if (entry.profileId != profile.id && entry is Sale) {
       return <Widget>[
         entryButton("Complete"),
         SizedBox(width: 10),
         entryButton("Contact Seller"),
       ];
-    } else if (a == "I AM BUYER, I MADE OFFER") {
+    } else if (entry.profileId == profile.id && entry is Offer && !entry.complete) {
       return <Widget>[
         entryButton("View Requests"),
         SizedBox(width: 10),
@@ -161,17 +147,13 @@ class ProductCard extends StatelessWidget {
         SizedBox(width: 10),
         entryButton("Delete"),
       ];
-    } else if (a == "I AM SELLER, I WANT TO SELL, SEE NEW") {
+    } else if (entry.profileId != profile.id && entry is Offer && !entry.complete) {
       return <Widget>[entryButton("Sell")];
-    } else if (a == "I AM SELLER, I WANT TO SELL, WAITING") {
-      return <Widget>[
-        entryButton("Cancel"),
-      ];
-    } else if (a == "I AM SELLER, I WANT TO SELL, ACCEPTED") {
+    } else if (entry.profileId != profile.id && entry is Offer) {
       return <Widget>[
         entryButton("Contact Seller"),
       ];
-    } else if (a == "I AM SELLER, I POSTED") {
+    } else if (entry.profileId == profile.id && entry is Sale && !entry.complete) {
       return <Widget>[
         entryButton("View Requests"),
         SizedBox(width: 10),
