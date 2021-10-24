@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:crypto_meal/src/pages/mainPage.dart';
 
 import 'src/data/profile.dart';
+import 'transaction.dart';
 
 List items = [
   {
@@ -98,10 +99,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           textAlign: TextAlign.center,
                         ),
                         if (item.containsKey('buttonText'))
-                          MaterialButton(
-                            onPressed: () {},
-                            color: Colors.grey,
-                            child: Text(item['buttonText']),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: 'Enter your private key',
+                            ),
+                            initialValue: 'd47606a20138373307c83e3e87c08a363ec9bf13240129ee097a70a795c7623b',
                           )
                       ],
                     ),
