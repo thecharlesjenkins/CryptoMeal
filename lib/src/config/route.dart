@@ -1,4 +1,4 @@
-import 'package:crypto_meal/src/pages/mainPage.dart';
+import 'package:crypto_meal/src/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
 class Routes {

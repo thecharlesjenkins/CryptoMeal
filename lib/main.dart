@@ -1,11 +1,11 @@
 import 'package:crypto_meal/provider/google_sign_in.dart';
 import 'package:crypto_meal/src/config/route.dart';
-import 'package:crypto_meal/src/pages/mainPage.dart';
+import 'package:crypto_meal/src/pages/main_page.dart';
 import 'package:crypto_meal/src/themes/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'welcome.dart';
+import 'src/pages/welcome.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

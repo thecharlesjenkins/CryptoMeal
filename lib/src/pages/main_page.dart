@@ -6,7 +6,7 @@ import 'package:crypto_meal/src/widgets/extentions.dart';
 import 'package:crypto_meal/src/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 
-import '../../transaction.dart';
+import '../utils/transaction.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key? key, required this.title}) : super(key: key);

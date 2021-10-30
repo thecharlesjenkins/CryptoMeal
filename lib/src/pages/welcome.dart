@@ -1,14 +1,16 @@
 import 'package:crypto_meal/provider/google_sign_in.dart';
 import 'package:crypto_meal/src/data/database.dart';
-import 'package:crypto_meal/src/data/firestore_database.dart';
 import 'package:crypto_meal/src/data/global_variables.dart';
-import 'package:crypto_meal/src/pages/mainPage.dart';
+import 'package:crypto_meal/src/pages/main_page.dart';
+import 'package:crypto_meal/src/pages/setup/setup_screen_form.dart';
+import 'package:crypto_meal/src/pages/setup/setup_screen_header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'src/data/profile.dart';
+import '../data/profile.dart';
+import 'setup/setup_screen_basics.dart';
 
 List items = [
   {
@@ -30,6 +32,39 @@ List items = [
   }
 ];
 
+final List<SetupScreenComponent> pages = [
+  CompositeSetupScreenComponent(
+    child: HeaderSetupScreenComponent(
+        image: 'assets/images/undraw_Joyride_re_968t.png',
+        title: 'Welcome',
+        description: 'Get on-campus meals while connecting with your peers'),
+  ),
+  CompositeSetupScreenComponent(
+    child: HeaderSetupScreenComponent(
+      image: 'assets/images/undraw_Setup_re_y9w8.png',
+      title: 'Build',
+      description: 'Set up an in-app wallet to aid you in your transfers',
+      child: FormSetupScreenComponent(
+        formSetupScreenComponentCompletion: (context) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Processing Data')),
+          );
+        },
+        children: [
+          TextFormFieldSetupScreenComponent(
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          )
+        ],
+      ),
+    ),
+  ),
+];
+
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 Database database = GlobalVariables().database;
@@ -48,9 +83,11 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   List<Widget> sliders = [];
+  int availablePages = 2;
+  Set<SetupScreenComponent> availableScreens = Set();
 
   List<Widget> indicator() => List<Widget>.generate(
-      sliders.length,
+      availablePages,
       (index) => Container(
             margin: EdgeInsets.symmetric(horizontal: 3.0),
             height: 10.0,
@@ -105,14 +142,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               height: 1.3),
                           textAlign: TextAlign.center,
                         ),
-                        if (item.containsKey('buttonText'))
-                          TextFormField(
-                            decoration: const InputDecoration(
-                              hintText: 'Enter your private key',
-                            ),
-                            initialValue:
-                                'd47606a20138373307c83e3e87c08a363ec9bf13240129ee097a70a795c7623b',
-                          )
+                        // if (item.containsKey('buttonText'))
+                        //   TextFormField(
+                        //     decoration: const InputDecoration(
+                        //       hintText: 'Enter your private key',
+                        //     ),
+                        //     initialValue:
+                        //         'd47606a20138373307c83e3e87c08a363ec9bf13240129ee097a70a795c7623b',
+                        //   )
                       ],
                     ),
                   ),
@@ -216,7 +253,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           children: <Widget>[
             PageView.builder(
               controller: _pageViewController,
-              itemCount: sliders.length,
+              itemCount: availablePages,
               itemBuilder: (BuildContext context, int index) {
                 _pageViewController.addListener(() {
                   setState(() {
