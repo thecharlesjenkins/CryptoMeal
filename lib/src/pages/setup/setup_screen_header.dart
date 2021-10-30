@@ -52,10 +52,11 @@ class HeaderSetupScreenComponent extends CompositeSetupScreenComponent {
                           height: 1.3),
                       textAlign: TextAlign.center,
                     ),
+                    if (child != null) child!,
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ));
   }

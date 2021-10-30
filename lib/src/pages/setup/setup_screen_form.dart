@@ -5,8 +5,10 @@ import 'setup_screen_basics.dart';
 typedef FormSetupScreenComponentCompletion = void Function(
     BuildContext context);
 
+typedef ContextedScreenComponents = List<Widget> Function(BuildContext context);
+
 class FormSetupScreenComponent extends StatefulSetupScreenComponent {
-  final List<Widget> children;
+  final ContextedScreenComponents children;
   final FormSetupScreenComponentCompletion formSetupScreenComponentCompletion;
 
   const FormSetupScreenComponent(
@@ -29,7 +31,7 @@ class FormSetupScreenComponentState extends State<FormSetupScreenComponent> {
     return Form(
       key: _formKey,
       child: Column(
-        children: List.from(super.widget.children)
+        children: List.from(super.widget.children(context))
           ..add(
             ElevatedButton(
               onPressed: () {
@@ -49,7 +51,13 @@ class FormSetupScreenComponentState extends State<FormSetupScreenComponent> {
 class TextFormFieldSetupScreenComponent extends TextFormField {
   final Key? key;
   final FormFieldValidator<String> validator;
+  final InputDecoration decoration;
 
-  TextFormFieldSetupScreenComponent({this.key, required this.validator})
-      : super(key: key, validator: validator);
+  TextFormFieldSetupScreenComponent(
+      {this.key, required this.validator, required this.decoration})
+      : super(
+          key: key,
+          validator: validator,
+          decoration: decoration,
+        );
 }
