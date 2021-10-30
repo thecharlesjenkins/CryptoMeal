@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../data/profile.dart';
+import 'main_page.dart';
 import 'setup/setup_screen_basics.dart';
 
 enum Screens { welcome, wallet, profile }
@@ -64,7 +65,16 @@ final StatedSetupScreenComponent profileScreen = (state) =>
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Processing Data')),
             );
-            state.updateCompletedScreens(Screens.profile);
+            database.uploadProfile(new_user);
+            /*database.Profile(
+                                        "0", name, username, phnumber); */
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MainPage(
+                        title: 'CryptoMeal',
+                      )),
+            );
           },
           children: (context) => [
             TextFormField(

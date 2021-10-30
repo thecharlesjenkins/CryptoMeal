@@ -1,4 +1,3 @@
-import 'package:crypto_meal/src/data/card_filter.dart';
 import 'package:crypto_meal/src/data/database.dart';
 import 'package:crypto_meal/src/data/entry.dart';
 import 'package:crypto_meal/src/data/global_variables.dart';
@@ -61,11 +60,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _toggleBar() {
     return Container(
       //  margin: EdgeInsets.symmetric(vertical: 10),
-      width: 183, //AppTheme.fullWidth(context),
+      // width: 183, //AppTheme.fullWidth(context),
       height: 30,
       child: ToggleSwitch(
         //height: 30,
-        minWidth: 90.0,
+        // minWidth: 90.0,
         cornerRadius: 20.0,
         activeBgColors: [
           [Colors.green],
@@ -90,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _postButton(BuildContext context) {
     return Container(
       //  margin: EdgeInsets.symmetric(vertical: 10),
-      width: 150, //AppTheme.fullWidth(context),
+      // width: 150, //AppTheme.fullWidth(context),
       height: 30,
       child: TextButton(
         style: TextButton.styleFrom(
@@ -117,87 +116,27 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _topBar() {
     return Container(
-        // margin: EdgeInsets.symmetric(vertical: 10),
-        width: AppTheme.fullWidth(context),
-        height: AppTheme.fullWidth(context) * 0.2,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Row(
-              children: <Widget>[
-                SizedBox(width: 20),
-                _toggleBar(),
-                SizedBox(width: 10),
-                _postButton(context),
-              ],
-            )
-          ],
-        ));
-  }
-
-  String dropdownValue = 'North Ave';
-
-  Widget dropDown() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      width: 115, //AppTheme.fullWidth(context),
-      height: 45,
-      child: DropdownButton<String>(
-        value: dropdownValue,
-        focusColor: Colors.orangeAccent[700],
-        //dropdownColor: Colors.orangeAccent[700] ,
-        //icon: const Icon(Icons.arrow_downward),
-        iconEnabledColor: Colors.black,
-
-        iconSize: 24,
-        elevation: 16,
-        dropdownColor: Colors.orangeAccent[700],
-
-        style: const TextStyle(color: Colors.black),
-
-        underline: Container(
-          height: 2,
-          color: Colors.orangeAccent[700],
-        ),
-        onChanged: (String? newValue) {
-          setState(() {
-            dropdownValue = newValue ?? "";
-          });
-        },
-        items: <String>[
-          'North Ave',
-          'West Village',
-          'Brittain',
-          'Exhibition Hall'
-        ].map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
+      // margin: EdgeInsets.symmetric(vertical: 10),
+      width: AppTheme.fullWidth(context),
+      height: AppTheme.fullWidth(context) * 0.2,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              // SizedBox(width: 20),
+              _toggleBar(),
+              // SizedBox(width: 10),
+              _postButton(context),
+            ],
+          )
+        ],
       ),
     );
   }
 
-  Widget _filters() {
-    return Container(
-        //    margin: EdgeInsets.symmetric(vertical: 10),
-        width: AppTheme.fullWidth(context),
-        height: AppTheme.fullWidth(context) * 0.2,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Row(
-              children: <Widget>[
-                SizedBox(width: 20),
-                dropDown(),
-                SizedBox(width: 10),
-                //dropDown(),
-              ],
-            )
-          ],
-        ));
-  }
+  String dropdownValue = 'North Ave';
 
   Database database = GlobalVariables().database;
 
