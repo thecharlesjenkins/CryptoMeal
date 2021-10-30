@@ -3,33 +3,12 @@ import 'package:crypto_meal/src/data/database.dart';
 import 'package:crypto_meal/src/data/global_variables.dart';
 import 'package:crypto_meal/src/pages/setup/setup_screen_form.dart';
 import 'package:crypto_meal/src/pages/setup/setup_screen_header.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../data/profile.dart';
 import 'setup/setup_screen_basics.dart';
-
-List items = [
-  {
-    "header": "Welcome",
-    "description": "Get on-campus meals while connecting with your peers",
-    "image": "assets/images/undraw_Joyride_re_968t.png",
-  },
-  {
-    "header": "Build",
-    "description": "Set up an in-app wallet to aid you in your transfers",
-    "image": "assets/images/undraw_Setup_re_y9w8.png",
-    "buttonText": "Build Wallet"
-  },
-  {
-    "header": "Create",
-    "description": "Please fill out your profile details:",
-    "image": "assets/images/undraw_data_input_fxv2.png",
-    "inputFlag": true
-  }
-];
 
 enum Screens { welcome, wallet, profile }
 
@@ -183,26 +162,30 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   void updateCompletedScreens(Screens screen) {
     if (!_completedScreens.contains(screen)) {
-      setState(() {
-        _completedScreens.add(screen);
-        _pageViewController.animateToPage((currentPage + 1).round(),
-            curve: Curves.easeIn, duration: Duration(seconds: 1));
-      });
+      setState(
+        () {
+          _completedScreens.add(screen);
+          _pageViewController.animateToPage((currentPage + 1).round(),
+              curve: Curves.easeIn, duration: Duration(seconds: 1));
+        },
+      );
     }
   }
 
   List<Widget> indicator() => List<Widget>.generate(
-      sliders.length,
-      (index) => Container(
-            margin: EdgeInsets.symmetric(horizontal: 3.0),
-            height: 10.0,
-            width: 10.0,
-            decoration: BoxDecoration(
-                color: currentPage.round() == index
-                    ? Color(0XFF256075)
-                    : Color(0XFF256075).withOpacity(0.2),
-                borderRadius: BorderRadius.circular(10.0)),
-          ));
+        sliders.length,
+        (index) => Container(
+          margin: EdgeInsets.symmetric(horizontal: 3.0),
+          height: 10.0,
+          width: 10.0,
+          decoration: BoxDecoration(
+            color: currentPage.round() == index
+                ? Color(0XFF256075)
+                : Color(0XFF256075).withOpacity(0.2),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+      );
 
   final _pageViewController = new PageController();
 
@@ -216,11 +199,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               controller: _pageViewController,
               itemCount: _completedScreens.length + 1,
               itemBuilder: (BuildContext context, int index) {
-                _pageViewController.addListener(() {
-                  setState(() {
-                    currentPage = _pageViewController.page ?? 0.0;
-                  });
-                });
+                _pageViewController.addListener(
+                  () {
+                    setState(
+                      () {
+                        currentPage = _pageViewController.page ?? 0.0;
+                      },
+                    );
+                  },
+                );
                 return sliders[index];
               },
             ),
