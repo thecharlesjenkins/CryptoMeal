@@ -176,7 +176,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         () {
           _completedScreens.add(screen);
           _pageViewController.animateToPage((currentPage + 1).round(),
-              curve: Curves.easeIn, duration: Duration(seconds: 1));
+              curve: Curves.easeIn, duration: Duration(seconds: 0.5));
         },
       );
     }
