@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
@@ -6,6 +8,12 @@ import 'package:web_socket_channel/io.dart';
 class Transact {
   static String rpcUrl = "http://10.0.2.2:7545";
   static String wsUrl = "ws://10.0.2.2:7545/";
+
+  static Future<EthPrivateKey> generateWallet() async {
+    var rng = new Random.secure();
+    EthPrivateKey random = EthPrivateKey.createRandom(rng);
+    return random;
+  }
 
   static void sendEther() async {
     Web3Client client = Web3Client(rpcUrl, Client(), socketConnector: () {

@@ -36,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
           FutureBuilder<Profile>(
             future: database.getProfile(user_id),
             builder: (futureContext, AsyncSnapshot<Profile> snapshot) {
-              return buildName(snapshot.data ?? Profile("", "", "", ""));
+              return buildName(snapshot.data ?? Profile.empty());
             },
           ),
           const SizedBox(height: 24),

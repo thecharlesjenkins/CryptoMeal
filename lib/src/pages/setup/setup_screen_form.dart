@@ -54,10 +54,14 @@ class TextFormFieldSetupScreenComponent extends TextFormField {
   final InputDecoration decoration;
 
   TextFormFieldSetupScreenComponent(
-      {this.key, required this.validator, required this.decoration})
+      {this.key,
+      required this.validator,
+      required this.decoration,
+      void Function(String? value)? onSaved})
       : super(
           key: key,
           validator: validator,
           decoration: decoration,
+          onSaved: onSaved,
         );
 }

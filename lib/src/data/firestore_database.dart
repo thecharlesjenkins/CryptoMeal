@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_meal/src/data/card_filter.dart';
 import 'package:crypto_meal/src/data/database.dart';
 import 'package:crypto_meal/src/data/entry.dart';
@@ -5,8 +6,6 @@ import 'package:crypto_meal/src/data/global_variables.dart';
 import 'package:crypto_meal/src/data/offer.dart';
 import 'package:crypto_meal/src/data/profile.dart';
 import 'package:crypto_meal/src/data/sale.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreDatabase implements Database {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -51,7 +50,8 @@ class FirestoreDatabase implements Database {
     DocumentSnapshot<Object?> document = await collection.doc(id).get();
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
-    return Profile(id, data['name'], data['username'], data['phnumber']);
+    return Profile(id, data['name'], data['username'], data['phnumber'],
+        data['crypto_key']);
   }
 
   @override
@@ -118,7 +118,7 @@ class FirestoreDatabase implements Database {
     CollectionReference entries =
         FirebaseFirestore.instance.collection('profiles');
 
-    Future<DocumentReference> added = entries.add(profile.tojson());
+    Future<DocumentReference> added = entries.add(profile.toJson());
     added.then((value) => GlobalVariables.user_id = value.id);
   }
 }

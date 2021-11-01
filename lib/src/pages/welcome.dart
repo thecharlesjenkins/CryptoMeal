@@ -1,19 +1,26 @@
 import 'package:crypto_meal/provider/google_sign_in.dart';
 import 'package:crypto_meal/src/data/database.dart';
 import 'package:crypto_meal/src/data/global_variables.dart';
+import 'package:crypto_meal/src/data/profile.dart';
 import 'package:crypto_meal/src/pages/setup/setup_screen_form.dart';
 import 'package:crypto_meal/src/pages/setup/setup_screen_header.dart';
+import 'package:crypto_meal/src/utils/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../data/profile.dart';
 import 'main_page.dart';
 import 'setup/setup_screen_basics.dart';
 
 enum Screens { welcome, wallet, profile }
 
-final StatedSetupScreenComponent welcomeScreen = (state) {
+typedef StatedSetupScreenComponent = SetupScreenComponent Function(
+    _WelcomeScreenState state, Profile profile);
+
+typedef StateScreenComponentList = List<SetupScreenComponent> Function(
+    _WelcomeScreenState state, Profile profile);
+
+final StatedSetupScreenComponent _welcomeScreen = (state, profile) {
   return CompositeSetupScreenComponent(
     child: HeaderSetupScreenComponent(
         image: 'assets/images/undraw_Joyride_re_968t.png',
@@ -22,11 +29,13 @@ final StatedSetupScreenComponent welcomeScreen = (state) {
   );
 };
 
-typedef StatedSetupScreenComponent = SetupScreenComponent Function(
-    _WelcomeScreenState state);
+Null _generateWallet(Profile profile) {
+  Transact.generateWallet()
+      .then((value) => profile.cryptoKey = value.privateKey.toString());
+}
 
-final StatedSetupScreenComponent walletScreen =
-    (state) => CompositeSetupScreenComponent(
+final StatedSetupScreenComponent _walletScreen =
+    (state, profile) => CompositeSetupScreenComponent(
           child: HeaderSetupScreenComponent(
             image: 'assets/images/undraw_Setup_re_y9w8.png',
             title: 'Build',
@@ -40,6 +49,9 @@ final StatedSetupScreenComponent walletScreen =
               },
               children: (context) => [
                 TextFormFieldSetupScreenComponent(
+                  onSaved: (String? value) {
+                    profile.cryptoKey = value!;
+                  },
                   decoration: const InputDecoration(
                       hintText: 'Enter your Ethereum wallet private key'),
                   validator: (value) {
@@ -48,13 +60,16 @@ final StatedSetupScreenComponent walletScreen =
                     }
                     return null;
                   },
-                )
+                ),
+                ElevatedButton(
+                    onPressed: _generateWallet(profile),
+                    child: Text("Generate wallet")),
               ],
             ),
           ),
         );
 
-final StatedSetupScreenComponent profileScreen = (state) =>
+final StatedSetupScreenComponent _profileScreen = (state, profile) =>
     CompositeSetupScreenComponent(
       child: HeaderSetupScreenComponent(
         image: 'assets/images/undraw_data_input_fxv2.png',
@@ -65,21 +80,20 @@ final StatedSetupScreenComponent profileScreen = (state) =>
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Processing Data')),
             );
-            database.uploadProfile(new_user);
-            /*database.Profile(
-                                        "0", name, username, phnumber); */
+            database.uploadProfile(profile);
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => MainPage(
-                        title: 'CryptoMeal',
-                      )),
+                builder: (context) => MainPage(
+                  title: 'CryptoMeal',
+                ),
+              ),
             );
           },
           children: (context) => [
             TextFormField(
               onSaved: (String? value) {
-                new_user.name = value ?? "";
+                profile.name = value!;
               },
               decoration: const InputDecoration(hintText: 'Enter your name'),
               validator: (String? value) {
@@ -91,9 +105,9 @@ final StatedSetupScreenComponent profileScreen = (state) =>
             ),
             TextFormField(
               onSaved: (String? value) {
-                new_user.username = value ?? "";
-                new_user.id = value ?? "";
-                GlobalVariables.user_id = value ?? "";
+                profile.username = value!;
+                profile.id = value;
+                GlobalVariables.user_id = value;
               },
               decoration:
                   const InputDecoration(hintText: 'Enter your username'),
@@ -106,7 +120,7 @@ final StatedSetupScreenComponent profileScreen = (state) =>
             ),
             TextFormField(
               onSaved: (String? value) {
-                new_user.phnumber = value ?? "";
+                profile.phnumber = value!;
               },
               decoration: const InputDecoration(
                 hintText: 'Enter your phone number',
@@ -137,23 +151,14 @@ final StatedSetupScreenComponent profileScreen = (state) =>
       ),
     );
 
-typedef StateScreenComponentList = List<SetupScreenComponent> Function(
-    _WelcomeScreenState state);
-
-final StateScreenComponentList pages = (state) => [
-      welcomeScreen(state),
-      walletScreen(state),
-      profileScreen(state),
+final StateScreenComponentList pages = (state, profile) => [
+      _welcomeScreen(state, profile),
+      _walletScreen(state, profile),
+      _profileScreen(state, profile),
     ];
 
 Database database = GlobalVariables().database;
 String user_id = GlobalVariables.user_id;
-
-String name = "";
-String phnumber = "";
-String username = "";
-
-Profile new_user = Profile(username, name, username, phnumber);
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -164,9 +169,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   List<Widget> sliders = [];
   List<Screens> _completedScreens = [];
   double currentPage = 0.0;
+  Profile profile = Profile.empty();
 
   _WelcomeScreenState() {
-    sliders = pages(this);
+    sliders = pages(this, profile);
     _completedScreens.add(Screens.welcome);
   }
 
@@ -176,7 +182,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         () {
           _completedScreens.add(screen);
           _pageViewController.animateToPage((currentPage + 1).round(),
-              curve: Curves.easeIn, duration: Duration(seconds: 0.5));
+              curve: Curves.easeIn, duration: Duration(milliseconds: 500));
         },
       );
     }
